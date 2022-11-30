@@ -4,5 +4,15 @@ public enum TypeUnivercity {
     azad,
     dolati,
     payamnor,
-    elmikarbordi
+    elmikarbordi;
+
+    public static TypeUnivercity getFromString(String name) {
+        for (TypeUnivercity value : TypeUnivercity.values()) {
+            if (value.toString().equalsIgnoreCase(name)) {
+                return value;
+            }
+        }
+        return null;
+    }
+
 }

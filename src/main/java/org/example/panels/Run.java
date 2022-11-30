@@ -1,8 +1,11 @@
 package org.example.panels;
 
 
-import org.example.Daneshjo;
+import org.example.TypeUnivercity;
+import org.example.entity.Daneshjo;
+import org.example.maghtaTahsili;
 
+import java.sql.Date;
 import java.util.Scanner;
 
 public class Run {
@@ -14,9 +17,36 @@ public class Run {
     }
 
     public static void register(){
-        Daneshjo daneshjo = new Daneshjo();
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("First Name : ");
+        String name = scanner.nextLine();
+        System.out.print("LastName :");
+        String lastName = scanner.nextLine();
+        System.out.print("Father Name : ");
+        String father = scanner.nextLine();
+        System.out.print("Mother Name : ");
+        String mother = scanner.nextLine();
+        System.out.print("International Code : ");
+        String international = scanner.nextLine();
+        System.out.print("Number Shenasnameh : ");
+        String shenasnameh = scanner.nextLine();
+        System.out.print("Enter birthDate : ");
+        String birthDate = scanner.nextLine();
+        System.out.print("Enter Daneshjoi Number : ");
+        String daneshjoi = scanner.nextLine();
+        System.out.print("Enter name Univercity : ");
+        String nameUnivercity = scanner.nextLine();
+        System.out.print("Type Univercity : ");
+        String type = scanner.nextLine();
+        System.out.print("Year Enter : ");
+        String yearEnter = scanner.nextLine();
+        System.out.print("maghta Tahsili : ");
+        String maghta = scanner.nextLine();
+        Daneshjo daneshjo = new Daneshjo(1,name,lastName,father,mother,
+                international,shenasnameh, Date.valueOf(birthDate),daneshjoi,nameUnivercity,
+                TypeUnivercity.getFromString(type),yearEnter, maghtaTahsili.getFromString(maghta));
+        }
 
-    }
 
     public static void start(){
         Scanner scanner = new Scanner(System.in);

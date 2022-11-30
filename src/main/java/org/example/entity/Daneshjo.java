@@ -1,14 +1,13 @@
-package org.example;
+package org.example.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.TypeUnivercity;
+import org.example.maghtaTahsili;
 
-import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Setter
@@ -19,15 +18,15 @@ import java.util.Date;
 @Table(name = "daneshjo")
 public class Daneshjo {
 
-    @Id
-    private int id;
+    @Id @GeneratedValue
+    private long id;
     private String name;
     private String lastName;
     private String fatherName;
     private String motherName;
     private String internationalCode;
     private String shenasname;
-    private Date date;
+    private Date brithDate;
     private String daneshjoiNumber;
     private String nameUnivercity;
     private Enum<TypeUnivercity> typeUnivercity;

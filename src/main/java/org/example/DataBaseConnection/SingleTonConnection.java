@@ -2,7 +2,7 @@ package org.example.DataBaseConnection;
 
 import lombok.NoArgsConstructor;
 import lombok.var;
-import org.example.Daneshjo;
+import org.example.entity.Daneshjo;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
