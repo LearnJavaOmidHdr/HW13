@@ -1,7 +1,5 @@
-package org.example;
+package org.example.Enums;
 
-
-import static sun.security.krb5.internal.crypto.Nonce.value;
 
 public enum maghtaTahsili {
     kardani,

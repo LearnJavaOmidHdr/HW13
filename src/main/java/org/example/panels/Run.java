@@ -1,9 +1,9 @@
 package org.example.panels;
 
 
-import org.example.TypeUnivercity;
+import org.example.Enums.TypeUnivercity;
 import org.example.entity.Daneshjo;
-import org.example.maghtaTahsili;
+import org.example.Enums.maghtaTahsili;
 
 import java.sql.Date;
 import java.util.Scanner;
@@ -16,7 +16,7 @@ public class Run {
                            "3. Quit");
     }
 
-    public static void register(){
+    public static Daneshjo register(){
         Scanner scanner = new Scanner(System.in);
         System.out.print("First Name : ");
         String name = scanner.nextLine();
@@ -45,6 +45,7 @@ public class Run {
         Daneshjo daneshjo = new Daneshjo(1,name,lastName,father,mother,
                 international,shenasnameh, Date.valueOf(birthDate),daneshjoi,nameUnivercity,
                 TypeUnivercity.getFromString(type),yearEnter, maghtaTahsili.getFromString(maghta));
+        return daneshjo;
         }
 
 

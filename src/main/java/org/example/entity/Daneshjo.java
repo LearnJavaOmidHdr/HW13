@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.example.TypeUnivercity;
-import org.example.maghtaTahsili;
+import org.example.Enums.TypeUnivercity;
+import org.example.Enums.maghtaTahsili;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -18,7 +18,7 @@ import java.util.Date;
 @Table(name = "daneshjo")
 public class Daneshjo {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
     private String lastName;
