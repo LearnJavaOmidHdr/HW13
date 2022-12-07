@@ -19,6 +19,11 @@ import java.util.zip.DataFormatException;
 
 public class UserPanel {
 
+    private static LoanRepository loanRepository = new LoanRepository();
+    private static LoansService loansService = new LoansService(loanRepository);
+    private static DaneshjoRepository daneshjoRepository = new DaneshjoRepository();
+    private static DaneshjoService daneshjoService = new DaneshjoService(daneshjoRepository);
+
     // section showLoan
     public static void showLoan() {
         System.out.println("Select your loan ");
@@ -44,8 +49,9 @@ public class UserPanel {
                 break;
             case "3":
                 showTahsiliLoan();
-//                selectLoanTahsili(daneshjo,"tahsili");
+                selectLoanTahsili(daneshjo,"tahsili");
                 break;
+                
             case "5":
                 Run.basePanel();
                 Run.start();
@@ -55,13 +61,57 @@ public class UserPanel {
         }
     }
 
+    //section select loan Tahsili
+    private static void selectLoanTahsili(long daneshjo, String typeLoan) throws DataFormatException, SQLException, NullpointerExeption, InvalidException {
+
+        final Daneshjo fullDaneshjo = daneshjoService.findById(daneshjo, Daneshjo.class);
+        String real = fullDaneshjo.getMaghtaTahsili().toString();
+        System.out.print("Do you want this Loan (y/n) : ");
+        final String answer = Main.scanner.nextLine();
+        if (answer.contains("y")) {
+            if (real.contains("kardani") || real.contains("karshenasiPeyvasteh") || real.contains("karshenasiNaPeyvasteh")) {
+                if (LoansService.checkLoanExists(daneshjo, typeLoan)) {
+                    final Loans kardani = createLoan(fullDaneshjo, typeLoan, 1900000L);
+                    loansService.create(kardani);
+                    UserPanel.showLoan();
+                    UserPanel.selectLoan(daneshjo);
+                } else {
+                    System.out.println("You have already requested this loan !! ");
+                    UserPanel.showLoan();
+                    UserPanel.selectLoan(daneshjo);
+                }
+            } else if (real.contains("karshenasiArshadPeyvasteh") || real.contains("karshenasiArshadNaPeyvasteh") || real.contains("doctoraHerfei") || real.contains("doctoaPeyvasteh,")) {
+
+                if (LoansService.checkLoanExists(daneshjo, typeLoan)) {
+                    final Loans arshad = createLoan(fullDaneshjo, typeLoan, 2250000L);
+                    loansService.create(arshad);
+                    UserPanel.showLoan();
+                    UserPanel.selectLoan(daneshjo);
+                } else {
+                    System.out.println("You have already requested this loan !! ");
+                    UserPanel.showLoan();
+                    UserPanel.selectLoan(daneshjo);
+                }
+            } else {
+                if (LoansService.checkLoanExists(daneshjo, typeLoan)) {
+                    final Loans doctora = createLoan(fullDaneshjo, typeLoan, 2600000L);
+                    loansService.create(doctora);
+                    UserPanel.showLoan();
+                    UserPanel.selectLoan(daneshjo);
+                } else {
+                    System.out.println("You have already requested this loan !! ");
+                    UserPanel.showLoan();
+                    UserPanel.selectLoan(daneshjo);
+                }
+            }
+        } else {
+            UserPanel.showLoan();
+            UserPanel.selectLoan(daneshjo);
+        }
+    }
     //section select loan shahrieh
     private static void selectLoanShahrieh(long daneshjo, String typeLoan) throws DataFormatException, SQLException, NullpointerExeption, InvalidException {
 
-        LoanRepository loanRepository = new LoanRepository();
-        final LoansService loansService = new LoansService(loanRepository);
-        DaneshjoRepository daneshjoRepository = new DaneshjoRepository();
-        DaneshjoService daneshjoService = new DaneshjoService(daneshjoRepository);
         final Daneshjo fullDaneshjo = daneshjoService.findById(daneshjo, Daneshjo.class);
         String real = fullDaneshjo.getMaghtaTahsili().toString();
         System.out.print("Do you want this Loan (y/n) : ");
