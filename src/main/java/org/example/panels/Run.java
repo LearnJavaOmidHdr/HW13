@@ -114,11 +114,13 @@ public class Run {
             case "1":
                 Daneshjo daneshjoLogin = login();
                 final long login = DaneshjoService.login(daneshjoLogin);
-                UserPanel.showLoan();
-                if (login >= 1)
+                if (login >= 1) {
+                    UserPanel.showLoan();
                     UserPanel.selectLoan(login);
-                basePanel();
-                start();
+                } else {
+                    basePanel();
+                    start();
+                }
                 break;
             case "2":
                 Daneshjo daneshjoRegister = register();
@@ -126,7 +128,7 @@ public class Run {
                 DaneshjoService daneshjoService = new DaneshjoService(daneshjoRepository);
                 try {
                     daneshjoService.create(daneshjoRegister);
-                }catch (Exception e){
+                } catch (Exception e) {
                     System.out.println("Wrong information");
                     basePanel();
                     start();
@@ -136,9 +138,6 @@ public class Run {
                 start();
                 break;
             case "3":
-                System.out.println("Enter number between 1-2");
-                basePanel();
-                start();
                 break;
             default:
                 basePanel();

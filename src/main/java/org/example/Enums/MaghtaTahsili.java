@@ -2,11 +2,19 @@ package org.example.Enums;
 
 
 public enum MaghtaTahsili {
+    // one
     kardani,
-    karshenasiNapeyvasteh,
     karshenasiPeyvasteh,
-    karshenasiArshad,
-    doktoraTakhasosi;
+    karshenasiNaPeyvasteh,
+
+    // two
+    karshenasiArshadPeyvasteh,
+    karshenasiArshadNaPeyvasteh,
+    doctoraHerfei,
+    doctoaPeyvasteh,
+
+    // three
+    doktoraTakhasosiNapeyvasteh;
     public static MaghtaTahsili getFromString(String name) {
         for (MaghtaTahsili value : MaghtaTahsili.values()) {
             if (value.toString().equalsIgnoreCase(name)) {
