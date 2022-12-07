@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class InternationalValidation {
 
     private boolean checkEmpty(String nationalCode) {
-        return nationalCode.isEmpty();
+        return !nationalCode.isEmpty();
     }
 
     private boolean len(String nationalCode) {
@@ -15,31 +15,30 @@ public class InternationalValidation {
 
     private boolean isNumeric(String nationalCode) {
         try {
-            Integer.parseInt(nationalCode);
+            Double.parseDouble(nationalCode);
             return true;
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (NumberFormatException e) {
             return false;
         }
+
     }
 
     private boolean validMeli(String nationalCode) {
         final String[] split = nationalCode.split("");
-        int count = 10;
+        AtomicInteger count = new AtomicInteger(10);
         AtomicInteger max = new AtomicInteger();
         Arrays.stream(split).forEach(s -> {
             final int i = Integer.parseInt(s);
-            int meli = i * count;
+            int meli = i * count.get();
+            count.addAndGet(-1);
             max.addAndGet(meli);
         });
-        return max.get() * 11 == 0;
+        return max.get() % 11 == 0;
     }
 
     public boolean checkMeli(String nationalCode) {
-        if (checkEmpty(nationalCode) && len(nationalCode) && isNumeric(nationalCode)
-                && validMeli(nationalCode))
-            return true;
-        return false;
+        return checkEmpty(nationalCode) && len(nationalCode) && isNumeric(nationalCode)
+                && validMeli(nationalCode);
     }
 
 }

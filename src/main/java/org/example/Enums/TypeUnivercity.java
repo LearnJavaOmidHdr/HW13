@@ -1,11 +1,14 @@
 package org.example.Enums;
 
 public enum TypeUnivercity {
-    azad,
-    dolati,
+    shabaneh,
+    gheyreEntefai,
+    pardis,
+    zarfiatMazad,
     payamnor,
-    elmikarbordi;
-
+    elmikarbordi,
+    azad,
+    dolati;
     public static TypeUnivercity getFromString(String name) {
         for (TypeUnivercity value : TypeUnivercity.values()) {
             if (value.toString().equalsIgnoreCase(name)) {
