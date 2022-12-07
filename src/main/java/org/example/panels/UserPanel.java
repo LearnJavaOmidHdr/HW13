@@ -37,21 +37,23 @@ public class UserPanel {
     }
 
     //section select loan
-    public static void selectLoan(long daneshjo) throws InvalidException, DataFormatException, SQLException, NullpointerExeption {
+    public static void selectLoan(long id) throws InvalidException, DataFormatException, SQLException, NullpointerExeption {
         switch (Main.scanner.nextLine()) {
             case "1":
                 showMaskanLoan();
-                selectLoanMaskan(daneshjo, "maskan");
+                selectLoanMaskan(id, "maskan");
                 break;
             case "2":
                 showShahriehLoan();
-                selectLoanShahrieh(daneshjo, "shahrieh");
+                selectLoanShahrieh(id, "shahrieh");
                 break;
             case "3":
                 showTahsiliLoan();
-                selectLoanTahsili(daneshjo,"tahsili");
+                selectLoanTahsili(id, "tahsili");
                 break;
-                
+            case "4":
+                showLoanById();
+                break;
             case "5":
                 Run.basePanel();
                 Run.start();
@@ -61,147 +63,154 @@ public class UserPanel {
         }
     }
 
-    //section select loan Tahsili
-    private static void selectLoanTahsili(long daneshjo, String typeLoan) throws DataFormatException, SQLException, NullpointerExeption, InvalidException {
+    //section show loan By id
+    private static void showLoanById(long id) {
+        
 
-        final Daneshjo fullDaneshjo = daneshjoService.findById(daneshjo, Daneshjo.class);
+    }
+
+    //section select loan Tahsili
+    private static void selectLoanTahsili(long id, String typeLoan) throws DataFormatException, SQLException, NullpointerExeption, InvalidException {
+
+        final Daneshjo fullDaneshjo = daneshjoService.findById(id, Daneshjo.class);
         String real = fullDaneshjo.getMaghtaTahsili().toString();
         System.out.print("Do you want this Loan (y/n) : ");
         final String answer = Main.scanner.nextLine();
         if (answer.contains("y")) {
             if (real.contains("kardani") || real.contains("karshenasiPeyvasteh") || real.contains("karshenasiNaPeyvasteh")) {
-                if (LoansService.checkLoanExists(daneshjo, typeLoan)) {
+                if (LoansService.checkLoanExists(id, typeLoan)) {
                     final Loans kardani = createLoan(fullDaneshjo, typeLoan, 1900000L);
                     loansService.create(kardani);
                     UserPanel.showLoan();
-                    UserPanel.selectLoan(daneshjo);
+                    UserPanel.selectLoan(id);
                 } else {
                     System.out.println("You have already requested this loan !! ");
                     UserPanel.showLoan();
-                    UserPanel.selectLoan(daneshjo);
+                    UserPanel.selectLoan(id);
                 }
             } else if (real.contains("karshenasiArshadPeyvasteh") || real.contains("karshenasiArshadNaPeyvasteh") || real.contains("doctoraHerfei") || real.contains("doctoaPeyvasteh,")) {
 
-                if (LoansService.checkLoanExists(daneshjo, typeLoan)) {
+                if (LoansService.checkLoanExists(id, typeLoan)) {
                     final Loans arshad = createLoan(fullDaneshjo, typeLoan, 2250000L);
                     loansService.create(arshad);
                     UserPanel.showLoan();
-                    UserPanel.selectLoan(daneshjo);
+                    UserPanel.selectLoan(id);
                 } else {
                     System.out.println("You have already requested this loan !! ");
                     UserPanel.showLoan();
-                    UserPanel.selectLoan(daneshjo);
+                    UserPanel.selectLoan(id);
                 }
             } else {
-                if (LoansService.checkLoanExists(daneshjo, typeLoan)) {
+                if (LoansService.checkLoanExists(id, typeLoan)) {
                     final Loans doctora = createLoan(fullDaneshjo, typeLoan, 2600000L);
                     loansService.create(doctora);
                     UserPanel.showLoan();
-                    UserPanel.selectLoan(daneshjo);
+                    UserPanel.selectLoan(id);
                 } else {
                     System.out.println("You have already requested this loan !! ");
                     UserPanel.showLoan();
-                    UserPanel.selectLoan(daneshjo);
+                    UserPanel.selectLoan(id);
                 }
             }
         } else {
             UserPanel.showLoan();
-            UserPanel.selectLoan(daneshjo);
+            UserPanel.selectLoan(id);
         }
     }
-    //section select loan shahrieh
-    private static void selectLoanShahrieh(long daneshjo, String typeLoan) throws DataFormatException, SQLException, NullpointerExeption, InvalidException {
 
-        final Daneshjo fullDaneshjo = daneshjoService.findById(daneshjo, Daneshjo.class);
+    //section select loan shahrieh
+    private static void selectLoanShahrieh(long id, String typeLoan) throws DataFormatException, SQLException, NullpointerExeption, InvalidException {
+
+        final Daneshjo fullDaneshjo = daneshjoService.findById(id, Daneshjo.class);
         String real = fullDaneshjo.getMaghtaTahsili().toString();
         System.out.print("Do you want this Loan (y/n) : ");
         final String answer = Main.scanner.nextLine();
         if (answer.contains("y")) {
             if (real.contains("kardani") || real.contains("karshenasiPeyvasteh") || real.contains("karshenasiNaPeyvasteh")) {
-                if (LoansService.checkLoanExists(daneshjo, typeLoan)) {
+                if (LoansService.checkLoanExists(id, typeLoan)) {
                     final Loans kardani = createLoan(fullDaneshjo, typeLoan, 1300000L);
                     loansService.create(kardani);
                     UserPanel.showLoan();
-                    UserPanel.selectLoan(daneshjo);
+                    UserPanel.selectLoan(id);
                 } else {
                     System.out.println("You have already requested this loan !! ");
                     UserPanel.showLoan();
-                    UserPanel.selectLoan(daneshjo);
+                    UserPanel.selectLoan(id);
                 }
             } else if (real.contains("karshenasiArshadPeyvasteh") || real.contains("karshenasiArshadNaPeyvasteh") || real.contains("doctoraHerfei") || real.contains("doctoaPeyvasteh,")) {
 
-                if (LoansService.checkLoanExists(daneshjo, typeLoan)) {
+                if (LoansService.checkLoanExists(id, typeLoan)) {
                     final Loans arshad = createLoan(fullDaneshjo, typeLoan, 2600000L);
                     loansService.create(arshad);
                     UserPanel.showLoan();
-                    UserPanel.selectLoan(daneshjo);
+                    UserPanel.selectLoan(id);
                 } else {
                     System.out.println("You have already requested this loan !! ");
                     UserPanel.showLoan();
-                    UserPanel.selectLoan(daneshjo);
+                    UserPanel.selectLoan(id);
                 }
             } else {
-                if (LoansService.checkLoanExists(daneshjo, typeLoan)) {
+                if (LoansService.checkLoanExists(id, typeLoan)) {
                     final Loans doctora = createLoan(fullDaneshjo, typeLoan, 65000000L);
                     loansService.create(doctora);
                     UserPanel.showLoan();
-                    UserPanel.selectLoan(daneshjo);
+                    UserPanel.selectLoan(id);
                 } else {
                     System.out.println("You have already requested this loan !! ");
                     UserPanel.showLoan();
-                    UserPanel.selectLoan(daneshjo);
+                    UserPanel.selectLoan(id);
                 }
             }
         } else {
             UserPanel.showLoan();
-            UserPanel.selectLoan(daneshjo);
+            UserPanel.selectLoan(id);
         }
     }
 
     // section select Load Maskan
-    private static void selectLoanMaskan(long daneshjo, String typeLoan) throws InvalidException, DataFormatException, SQLException, NullpointerExeption {
+    private static void selectLoanMaskan(long id, String typeLoan) throws InvalidException, DataFormatException, SQLException, NullpointerExeption {
 
         LoanRepository loanRepository = new LoanRepository();
         final LoansService loansService = new LoansService(loanRepository);
         DaneshjoRepository daneshjoRepository = new DaneshjoRepository();
         DaneshjoService daneshjoService = new DaneshjoService(daneshjoRepository);
-        final Daneshjo fullDaneshjo = daneshjoService.findById(daneshjo, Daneshjo.class);
+        final Daneshjo fullDaneshjo = daneshjoService.findById(id, Daneshjo.class);
 
         System.out.print("Enter your Number :");
         switch (Main.scanner.nextLine()) {
             case "1":
-                if (LoansService.checkLoanExists(daneshjo, typeLoan)) {
+                if (LoansService.checkLoanExists(id, typeLoan)) {
                     final Loans Tehran = createLoan(fullDaneshjo, typeLoan, 32000000L);
                     loansService.create(Tehran);
                 } else {
                     System.out.println("You have already a loan !! ");
                     UserPanel.showLoan();
-                    UserPanel.selectLoan(daneshjo);
+                    UserPanel.selectLoan(id);
                 }
                 break;
             case "2":
-                if (LoansService.checkLoanExists(daneshjo, typeLoan)) {
+                if (LoansService.checkLoanExists(id, typeLoan)) {
                     final Loans Kalanshahr = createLoan(fullDaneshjo, typeLoan, 26000000L);
                     loansService.create(Kalanshahr);
                 } else {
                     System.out.println("You have already a loan !! ");
                     UserPanel.showLoan();
-                    UserPanel.selectLoan(daneshjo);
+                    UserPanel.selectLoan(id);
                 }
                 break;
             case "3":
-                if (LoansService.checkLoanExists(daneshjo, typeLoan)) {
+                if (LoansService.checkLoanExists(id, typeLoan)) {
                     final Loans Other = createLoan(fullDaneshjo, typeLoan, 19500000L);
                     loansService.create(Other);
                 } else {
                     System.out.println("You have already a loan !! ");
                     UserPanel.showLoan();
-                    UserPanel.selectLoan(daneshjo);
+                    UserPanel.selectLoan(id);
                 }
                 break;
             case "4":
                 UserPanel.showLoan();
-                UserPanel.selectLoan(daneshjo);
+                UserPanel.selectLoan(id);
                 break;
             default:
                 break;
@@ -237,10 +246,10 @@ public class UserPanel {
     }
 
     //section create Loan
-    public static Loans createLoan(Daneshjo daneshjo, String typeLoan, Long amount) throws InvalidException {
+    public static Loans createLoan(Daneshjo id, String typeLoan, Long amount) throws InvalidException {
         try {
             LocalDate date = LocalDate.now();
-            Loans loans = new Loans(Status.request, daneshjo, date, TypeLoan.getFromString(typeLoan), amount);
+            Loans loans = new Loans(Status.request, id, date, TypeLoan.getFromString(typeLoan), amount);
             return loans;
         } catch (Exception e) {
             throw new InvalidException("Wrong Input");
