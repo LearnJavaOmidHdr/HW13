@@ -16,7 +16,7 @@ public class AdminRepository {
         Session session = SingleTonConnection.getInstance().openSession();
         try {
             transaction = session.beginTransaction();
-            final NativeQuery nativeQuery = session.createNativeQuery("select * from admin where user_name = ? and password = ?;");
+            final NativeQuery nativeQuery = session.createNativeQuery("select * from admin where username = ? and password = ?;");
             nativeQuery.setParameter(1, daneshjo.getUserName());
             nativeQuery.setParameter(2, daneshjo.getPassword());
             final Optional first = nativeQuery.getResultList().stream().findFirst();

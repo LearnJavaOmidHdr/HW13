@@ -66,8 +66,11 @@ public class Daneshjo {
     @Column(name = "password",nullable = false)
     private String password;
 
+    @Embedded
+    private CartBank cartNumber;
 
-    public Daneshjo(String name, String lastName, String fatherName, String motherName, String internationalCode, String shenasname, Date brithDate, String daneshjoiNumber, String nameUnivercity, TypeUnivercity typeUnivercity, String yearEnter, MaghtaTahsili maghtaTahsili, String userName, String password) {
+
+    public Daneshjo(String name, String lastName, String fatherName, String motherName, String internationalCode, String shenasname, Date brithDate, String daneshjoiNumber, String nameUnivercity, TypeUnivercity typeUnivercity, String yearEnter, MaghtaTahsili maghtaTahsili, String userName, String password , CartBank cartNumber) {
         this.name = name;
         this.lastName = lastName;
         this.fatherName = fatherName;
@@ -82,6 +85,7 @@ public class Daneshjo {
         this.maghtaTahsili = maghtaTahsili;
         this.userName = userName;
         this.password = password;
+        this.cartNumber=cartNumber;
     }
 
     public Daneshjo(String userName, String password) {

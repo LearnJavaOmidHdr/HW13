@@ -26,6 +26,31 @@ public class UserPanel {
     private static DaneshjoRepository daneshjoRepository = new DaneshjoRepository();
     private static DaneshjoService daneshjoService = new DaneshjoService(daneshjoRepository);
 
+    //section basePanel
+    public static void userPanel() {
+        System.out.println("________________ \n" +
+                "1.request a loan\n" +
+                "2.Pay a loan" +
+                "3.quit");
+    }
+
+    public static void selectUserPanel(Long login) throws DataFormatException, SQLException, NullpointerExeption, InvalidException, Invalid {
+        System.out.print("Enter your Number : ");
+        switch (Main.scanner.nextLine()) {
+            case "1":
+                UserPanel.showLoan();
+                UserPanel.selectLoan(login);
+                break;
+            case "2":
+                break;
+            case "3":
+                Run.basePanel();
+                Run.start();
+                break;
+        }
+    }
+
+
     // section showLoan
     public static void showLoan() {
         System.out.println("Select your loan ");
@@ -69,7 +94,7 @@ public class UserPanel {
     private static void showLoanById(long id) {
         LoanRepository loanRepository = new LoanRepository();
         final List<Loans> loans = LoanRepository.daneshjoLoans(1L);
-        if (loans.size()<= 1)
+        if (loans.size() <= 1)
             System.out.println("You have No loans");
         for (Loans loan : loans) {
             System.out.println("You have Loan : " + loan.getTypeLoan());

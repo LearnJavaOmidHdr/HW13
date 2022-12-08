@@ -5,15 +5,18 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class InternationalValidation {
 
-    private boolean checkEmpty(String nationalCode) {
+    public boolean checkEmpty(String nationalCode) {
         return !nationalCode.isEmpty();
     }
 
     private boolean len(String nationalCode) {
         return nationalCode.length() == 10;
     }
+    public boolean lenCart(String cartNumber){
+        return cartNumber.length() == 16;
+    }
 
-    private boolean isNumeric(String nationalCode) {
+    public boolean isNumeric(String nationalCode) {
         try {
             Double.parseDouble(nationalCode);
             return true;

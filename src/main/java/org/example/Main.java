@@ -15,7 +15,7 @@ public class Main {
     public final static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws NullpointerExeption, DataFormatException, SQLException, InvalidException, Invalid {
-        Run.basePanel();
-        Run.start();
+//        Run.basePanel();
+//        Run.start();
     }
 }

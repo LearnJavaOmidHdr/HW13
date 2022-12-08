@@ -9,6 +9,8 @@ import java.util.regex.Pattern;
 import java.util.zip.DataFormatException;
 
 public class Validation {
+
+    //section Number
     public static boolean noNumber(String string) {
         AtomicBoolean flag = new AtomicBoolean(true);
         Arrays.stream(string.split("")).forEach(s -> {
@@ -17,13 +19,24 @@ public class Validation {
         });
         return flag.get();
     }
+    //section cart
+    public static boolean cartNumber(String cartNumber){
+        CartBankValidation cart = new CartBankValidation();
+        boolean validation = cart.validation(cartNumber);
+        while (!validation){
+            System.out.print("Wrong information \nTry again : ");
+            validation = cart.validation(Main.scanner.nextLine());
+        }
+        return validation;
+    }
 
+    //section String
     public static String validString(String string) {
         boolean result = Validation.noNumber(string);
         String returnResult = string;
         while (!result) {
             System.out.println("Wrong Information ! ");
-            System.out.print("First Name : ");
+            System.out.print("Enter your Information : ");
             String name = Main.scanner.nextLine();
             result = Validation.noNumber(name);
             returnResult = name;
@@ -31,6 +44,7 @@ public class Validation {
         return returnResult;
     }
 
+    //section shen
     public static String validShen(String s) {
         ShenasnamehValidation shenasnamehValidation = new ShenasnamehValidation();
         boolean shen = shenasnamehValidation.checkShen(s);
@@ -47,6 +61,7 @@ public class Validation {
     }
 
 
+    //section international
     public static String validInternational(String international) {
         InternationalValidation validateInternation = new InternationalValidation();
         boolean binternational = validateInternation.checkMeli(international);
@@ -61,6 +76,7 @@ public class Validation {
         return resultInformational;
     }
 
+    //section year
     public static String validYear(String year) {
         Pattern pattern = Pattern.compile("^\\d{4}$");
         boolean matches = year.matches(String.valueOf(pattern));
@@ -73,19 +89,20 @@ public class Validation {
         return newYear;
     }
 
+    //section valid date
     public static String validDate(String date) throws DataFormatException {
         boolean check = DateValidation.check(date);
         String newDate = date;
         while (!check) {
-            System.out.print("Wrong Date !! \n" +
-                    "Enter Correct Date Again \n" +
-                    "For Example (1400-05-06) : ");
+            System.out.print("Wrong Information !! \n" +
+                    "try Again : ");
             newDate = Main.scanner.nextLine();
             check = DateValidation.check(newDate);
         }
         return newDate;
     }
 
+    //section between
     public static String between(String number) throws Invalid {
         Pattern pattern = Pattern.compile("^[1-8]$");
         boolean matches = number.matches(String.valueOf(pattern));
@@ -97,6 +114,8 @@ public class Validation {
         }
         return univercity(Integer.parseInt(newNum));
     }
+
+    //section univercity
     public static String univercity(int uni){
         if (uni == 1)
             return "shabaneh";

@@ -29,8 +29,11 @@ public class Loans{
     @Enumerated(value = EnumType.STRING)
     private TypeLoan typeLoan;
 
-
     private Long amount;
+
+    private int installments;
+
+    private Long leftOver;
 
     public Loans(Status status, Daneshjo daneshjo ,LocalDate date, TypeLoan typeLoan, Long amount) {
         this.status = status;

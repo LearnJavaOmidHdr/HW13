@@ -4,6 +4,7 @@ import org.example.Enums.TypeUnivercity;
 import org.example.Main;
 import org.example.Services.AdminService;
 import org.example.Services.DaneshjoService;
+import org.example.entity.CartBank;
 import org.example.entity.Daneshjo;
 import org.example.Enums.MaghtaTahsili;
 import org.example.exception.InvalidException;
@@ -11,7 +12,6 @@ import org.example.exception.NullpointerExeption;
 import org.example.repository.DaneshjoRepository;
 import org.example.validation.*;
 import org.omg.CORBA.DynAnyPackage.Invalid;
-
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -29,43 +29,42 @@ public class Run {
 
     //section Register
     public static Daneshjo register() throws DataFormatException, Invalid {
-        Scanner scanner = new Scanner(System.in);
 
-//        /*
         System.out.print("Enter your Information Again : ");
         String name = Main.scanner.nextLine();
         Validation.validString(name);
 
         System.out.print("LastName :");
-        final String lastName = scanner.nextLine();
+        final String lastName = Main.scanner.nextLine();
         Validation.validString(lastName);
 
         System.out.print("Father Name : ");
-        final String father = scanner.nextLine();
+        final String father = Main.scanner.nextLine();
         Validation.validString(father);
 
         System.out.print("Mother Name : ");
-        final String mother = scanner.nextLine();
+        final String mother = Main.scanner.nextLine();
         Validation.validString(mother);
 
         System.out.print("International Code : ");
-        final String international = scanner.nextLine();
+        final String international = Main.scanner.nextLine();
         Validation.validInternational(international);
 
         System.out.print("Number Shenasnameh : ");
-        final String shenasnameh = scanner.nextLine();
+        final String shenasnameh = Main.scanner.nextLine();
         Validation.validShen(shenasnameh);
 
-        System.out.print("Enter birthDate : ");
-        final String birthDate = scanner.nextLine();
+        System.out.print("Enter birthDate \n"+
+                "For Example (1400-05-06) : ");
+        final String birthDate = Main.scanner.nextLine();
         Validation.validDate(birthDate);
 
         System.out.print("Enter Daneshjoi Number : ");
-        final String daneshjoi = scanner.nextLine();
+        final String daneshjoi = Main.scanner.nextLine();
         Validation.validInternational(daneshjoi);
         // i think daneshjoi name is same as national code
         System.out.print("Enter name Univercity : ");
-        final String nameUnivercity = scanner.nextLine();
+        final String nameUnivercity = Main.scanner.nextLine();
         Validation.validString(nameUnivercity);
 
 
@@ -79,15 +78,15 @@ public class Run {
                 "7. azad\n" +
                 "8. dolati");
         System.out.print("Type Univercity : ");
-        final String type = scanner.nextLine();
+        final String type = Main.scanner.nextLine();
         final String typeUnivercity = Validation.between(type);
 
         System.out.print("Year Enter : ");
-        final String yearEnter = scanner.nextLine();
+        final String yearEnter = Main.scanner.nextLine();
         Validation.validYear(yearEnter);
 
         System.out.print("Maghta Tahsili : ");
-        final String maghta = scanner.nextLine();
+        final String maghta = Main.scanner.nextLine();
 
         System.out.println("________________ \n" +
                 "1. kardani\n"+
@@ -99,7 +98,16 @@ public class Run {
                 "7. doctoaPeyvasteh\n"+
                 "8. doktoraTakhasosiNapeyvasteh");
         final String tahsili = Validation.between(maghta);
-//         */
+
+        System.out.print("Enter Your CartBank Number : ");
+        final String bankNumber = Main.scanner.nextLine();
+        Validation.cartNumber(bankNumber);
+
+        System.out.print("Enter cvv2 : ");
+        final String cvv2 = Main.scanner.nextLine();
+        Validation.validYear(cvv2);
+        
+        CartBank cartNumber = new CartBank(bankNumber,cvv2,900000000000L);
 
         /*
         String name = "omid" , lastName = "heidary" , father = "personal" , mother = "personal",international ="4310831877" , daneshjoi = "1234",shenasnameh="55",birthDate ="1994-05-06" , yearEnter = "2001" ,nameUnivercity = "parsian" , type ="azad" , maghta = "kardani";
@@ -107,7 +115,7 @@ public class Run {
         Daneshjo daneshjo = new Daneshjo(name, lastName, father, mother,
                 international, shenasnameh, Date.valueOf(birthDate), daneshjoi, nameUnivercity,
                 TypeUnivercity.getFromString(typeUnivercity), yearEnter, MaghtaTahsili.getFromString(tahsili),
-                international, GeneratePassword.generatePassword());
+                international, GeneratePassword.generatePassword(),cartNumber);
         return daneshjo;
     }
 
@@ -130,8 +138,8 @@ public class Run {
                 final long login = DaneshjoService.login(daneshjoLogin);
                 boolean loginAdmin = AdminService.login(daneshjoLogin);
                 if (login >= 1) {
-                    UserPanel.showLoan();
-                    UserPanel.selectLoan(login);
+                    UserPanel.userPanel();
+                    UserPanel.selectUserPanel(login);
                 } else if (loginAdmin) {
                     //todo add panel admin
                 } else {
