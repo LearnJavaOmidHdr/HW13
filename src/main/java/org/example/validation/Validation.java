@@ -1,6 +1,7 @@
 package org.example.validation;
 
 import org.example.Main;
+import org.omg.CORBA.DynAnyPackage.Invalid;
 
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -84,4 +85,36 @@ public class Validation {
         }
         return newDate;
     }
+
+    public static String between(String number) throws Invalid {
+        Pattern pattern = Pattern.compile("^[1-8]$");
+        boolean matches = number.matches(String.valueOf(pattern));
+        String newNum = number;
+        while (!matches) {
+            System.out.print("Enter Number Between '1-8' : ");
+            newNum = Main.scanner.nextLine();
+            matches = newNum.matches(String.valueOf(pattern));
+        }
+        return univercity(Integer.parseInt(newNum));
+    }
+    public static String univercity(int uni){
+        if (uni == 1)
+            return "shabaneh";
+        else if (uni == 2)
+            return "gheyreEntefai";
+        else if (uni == 3)
+            return "pardis";
+        else if (uni ==4)
+            return "zarfiatMazad";
+        else if (uni == 5)
+            return "payamnor";
+        else if (uni ==6)
+            return "elmikarbordi";
+        else if (uni == 7)
+            return "azad";
+        else if (uni ==8)
+            return "dolati";
+        return null;
+    }
+
 }

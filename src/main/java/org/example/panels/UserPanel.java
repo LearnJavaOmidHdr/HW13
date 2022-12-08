@@ -11,6 +11,7 @@ import org.example.exception.InvalidException;
 import org.example.exception.NullpointerExeption;
 import org.example.repository.DaneshjoRepository;
 import org.example.repository.LoanRepository;
+import org.omg.CORBA.DynAnyPackage.Invalid;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -38,7 +39,7 @@ public class UserPanel {
     }
 
     //section select loan
-    public static void selectLoan(long id) throws InvalidException, DataFormatException, SQLException, NullpointerExeption {
+    public static void selectLoan(long id) throws InvalidException, DataFormatException, SQLException, NullpointerExeption, Invalid {
         switch (Main.scanner.nextLine()) {
             case "1":
                 showMaskanLoan();
@@ -77,7 +78,7 @@ public class UserPanel {
     }
 
     //section select loan Tahsili
-    private static void selectLoanTahsili(long id, String typeLoan) throws DataFormatException, SQLException, NullpointerExeption, InvalidException {
+    private static void selectLoanTahsili(long id, String typeLoan) throws DataFormatException, SQLException, NullpointerExeption, InvalidException, Invalid {
 
         final Daneshjo fullDaneshjo = daneshjoService.findById(id, Daneshjo.class);
         String real = fullDaneshjo.getMaghtaTahsili().toString();
@@ -126,7 +127,7 @@ public class UserPanel {
     }
 
     //section select loan shahrieh
-    private static void selectLoanShahrieh(long id, String typeLoan) throws DataFormatException, SQLException, NullpointerExeption, InvalidException {
+    private static void selectLoanShahrieh(long id, String typeLoan) throws DataFormatException, SQLException, NullpointerExeption, InvalidException, Invalid {
 
         final Daneshjo fullDaneshjo = daneshjoService.findById(id, Daneshjo.class);
         String real = fullDaneshjo.getMaghtaTahsili().toString();
@@ -175,7 +176,7 @@ public class UserPanel {
     }
 
     // section select Load Maskan
-    private static void selectLoanMaskan(long id, String typeLoan) throws InvalidException, DataFormatException, SQLException, NullpointerExeption {
+    private static void selectLoanMaskan(long id, String typeLoan) throws InvalidException, DataFormatException, SQLException, NullpointerExeption, Invalid {
 
         LoanRepository loanRepository = new LoanRepository();
         final LoansService loansService = new LoansService(loanRepository);

@@ -10,6 +10,7 @@ import org.example.exception.InvalidException;
 import org.example.exception.NullpointerExeption;
 import org.example.repository.DaneshjoRepository;
 import org.example.validation.*;
+import org.omg.CORBA.DynAnyPackage.Invalid;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -26,9 +27,8 @@ public class Run {
         System.out.print("Enter your Number : ");
     }
 
-
     //section Register
-    public static Daneshjo register() throws DataFormatException {
+    public static Daneshjo register() throws DataFormatException, Invalid {
         Scanner scanner = new Scanner(System.in);
 
 //        /*
@@ -68,8 +68,19 @@ public class Run {
         final String nameUnivercity = scanner.nextLine();
         Validation.validString(nameUnivercity);
 
+
+        System.out.println("________________ \n" +
+                "1. shabaneh\n" +
+                "2. gheyreEntefai\n" +
+                "3. pardis\n" +
+                "4. zarfiatMazad\n" +
+                "5. payamnor\n" +
+                "6. elmikarbordi\n" +
+                "7. azad\n" +
+                "8. dolati");
         System.out.print("Type Univercity : ");
         final String type = scanner.nextLine();
+        final String typeUnivercity = Validation.between(type);
 
         System.out.print("Year Enter : ");
         final String yearEnter = scanner.nextLine();
@@ -77,13 +88,25 @@ public class Run {
 
         System.out.print("Maghta Tahsili : ");
         final String maghta = scanner.nextLine();
+
+        System.out.println("________________ \n" +
+                "1. kardani\n"+
+                "2. karshenasiPeyvasteh\n"+
+                "3. karshenasiNaPeyvasteh\n"+
+                "4. karshenasiArshadPeyvasteh\n"+
+                "5. karshenasiArshadNaPeyvasteh\n"+
+                "6. doctoraHerfei\n"+
+                "7. doctoaPeyvasteh\n"+
+                "8. doktoraTakhasosiNapeyvasteh");
+        final String tahsili = Validation.between(maghta);
 //         */
+
         /*
         String name = "omid" , lastName = "heidary" , father = "personal" , mother = "personal",international ="4310831877" , daneshjoi = "1234",shenasnameh="55",birthDate ="1994-05-06" , yearEnter = "2001" ,nameUnivercity = "parsian" , type ="azad" , maghta = "kardani";
          */
         Daneshjo daneshjo = new Daneshjo(name, lastName, father, mother,
                 international, shenasnameh, Date.valueOf(birthDate), daneshjoi, nameUnivercity,
-                TypeUnivercity.getFromString(type), yearEnter, MaghtaTahsili.getFromString(maghta),
+                TypeUnivercity.getFromString(typeUnivercity), yearEnter, MaghtaTahsili.getFromString(tahsili),
                 international, GeneratePassword.generatePassword());
         return daneshjo;
     }
@@ -99,7 +122,7 @@ public class Run {
     }
 
     //section start
-    public static void start() throws NullpointerExeption, DataFormatException, SQLException, InvalidException {
+    public static void start() throws NullpointerExeption, DataFormatException, SQLException, InvalidException, Invalid {
         Scanner scanner = new Scanner(System.in);
         switch (scanner.nextLine()) {
             case "1":
