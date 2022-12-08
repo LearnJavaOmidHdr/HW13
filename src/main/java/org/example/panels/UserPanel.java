@@ -14,6 +14,7 @@ import org.example.repository.LoanRepository;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.zip.DataFormatException;
 
 
@@ -52,7 +53,7 @@ public class UserPanel {
                 selectLoanTahsili(id, "tahsili");
                 break;
             case "4":
-                showLoanById();
+                showLoanById(id);
                 break;
             case "5":
                 Run.basePanel();
@@ -65,8 +66,14 @@ public class UserPanel {
 
     //section show loan By id
     private static void showLoanById(long id) {
-        
+        LoanRepository loanRepository = new LoanRepository();
+        final List<Loans> loans = LoanRepository.daneshjoLoans(1L);
+        if (loans.size()<= 1)
+            System.out.println("You have No loans");
+        for (Loans loan : loans) {
+            System.out.println("You have Loan : " + loan.getTypeLoan());
 
+        }
     }
 
     //section select loan Tahsili

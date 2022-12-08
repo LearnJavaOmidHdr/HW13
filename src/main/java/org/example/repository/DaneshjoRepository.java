@@ -1,13 +1,11 @@
 package org.example.repository;
 
-
 import org.example.DataBaseConnection.SingleTonConnection;
 import org.example.entity.Daneshjo;
 import org.example.exception.UserNotFound;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
-
 import java.util.List;
 import java.util.Optional;
 

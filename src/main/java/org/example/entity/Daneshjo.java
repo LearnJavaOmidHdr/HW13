@@ -21,49 +21,49 @@ public class Daneshjo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-//    @Column(nullable = false)
+    @Column(nullable = false)
     private String name;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name",nullable = false)
     private String lastName;
 
-    @Column(name = "father_name")
+    @Column(name = "father_name",nullable = false)
     private String fatherName;
 
-    @Column(name = "mother_name")
+    @Column(name = "mother_name",nullable = false)
     private String motherName;
 
-    @Column(name = "international_code", unique = true)
+    @Column(name = "international_code", unique = true,nullable = false)
     private String internationalCode;
 
-    @Column(unique = true)
+    @Column(unique = true,nullable = false)
     private String shenasname;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "birth_date")
+    @Column(name = "birth_date",nullable = false)
     private Date brithDate;
 
-    @Column(name = "daneshjoi_number", unique = true)
+    @Column(name = "daneshjoi_number", unique = true,nullable = false)
     private String daneshjoiNumber;
 
-    @Column(name = "name_univercity")
+    @Column(name = "name_univercity",nullable = false)
     private String nameUnivercity;
 
-    @Column(name = "type_univercity")
+    @Column(name = "type_univercity",nullable = false)
     @Enumerated(value = EnumType.STRING)
     private TypeUnivercity typeUnivercity;
 
-    @Column(name = "year_enter")
+    @Column(name = "year_enter",nullable = false)
     private String yearEnter;
 
-    @Column(name = "maghta_Tahsili")
+    @Column(name = "maghta_Tahsili",nullable = false)
     @Enumerated(value = EnumType.STRING)
     private MaghtaTahsili maghtaTahsili;
 
-    @Column(name = "user_name", unique = true)
+    @Column(name = "user_name", unique = true,nullable = false)
     private String userName;
 
-    @Column(name = "password")
+    @Column(name = "password",nullable = false)
     private String password;
 
 

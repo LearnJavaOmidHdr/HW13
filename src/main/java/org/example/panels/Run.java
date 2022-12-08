@@ -2,6 +2,7 @@ package org.example.panels;
 
 import org.example.Enums.TypeUnivercity;
 import org.example.Main;
+import org.example.Services.AdminService;
 import org.example.Services.DaneshjoService;
 import org.example.entity.Daneshjo;
 import org.example.Enums.MaghtaTahsili;
@@ -31,70 +32,60 @@ public class Run {
         Scanner scanner = new Scanner(System.in);
 
 //        /*
-        System.out.print("First Name : ");
-        final String name = scanner.nextLine();
+        System.out.print("Enter your Information Again : ");
+        String name = Main.scanner.nextLine();
+        Validation.validString(name);
 
         System.out.print("LastName :");
         final String lastName = scanner.nextLine();
+        Validation.validString(lastName);
 
         System.out.print("Father Name : ");
         final String father = scanner.nextLine();
+        Validation.validString(father);
 
         System.out.print("Mother Name : ");
         final String mother = scanner.nextLine();
+        Validation.validString(mother);
 
         System.out.print("International Code : ");
         final String international = scanner.nextLine();
+        Validation.validInternational(international);
 
         System.out.print("Number Shenasnameh : ");
         final String shenasnameh = scanner.nextLine();
+        Validation.validShen(shenasnameh);
 
         System.out.print("Enter birthDate : ");
         final String birthDate = scanner.nextLine();
+        Validation.validDate(birthDate);
 
         System.out.print("Enter Daneshjoi Number : ");
         final String daneshjoi = scanner.nextLine();
-
+        Validation.validInternational(daneshjoi);
+        // i think daneshjoi name is same as national code
         System.out.print("Enter name Univercity : ");
         final String nameUnivercity = scanner.nextLine();
+        Validation.validString(nameUnivercity);
 
         System.out.print("Type Univercity : ");
         final String type = scanner.nextLine();
 
         System.out.print("Year Enter : ");
         final String yearEnter = scanner.nextLine();
+        Validation.validYear(yearEnter);
 
         System.out.print("Maghta Tahsili : ");
         final String maghta = scanner.nextLine();
 //         */
-
         /*
         String name = "omid" , lastName = "heidary" , father = "personal" , mother = "personal",international ="4310831877" , daneshjoi = "1234",shenasnameh="55",birthDate ="1994-05-06" , yearEnter = "2001" ,nameUnivercity = "parsian" , type ="azad" , maghta = "kardani";
          */
-
-        // start Validating
-        InternationalValidation validateInternation = new InternationalValidation();
-        ShenasnamehValidation shenasnamehValidation = new ShenasnamehValidation();
-        final boolean check = DateValidation.check(birthDate);
-
-
-        //section todo
-        // todo add these
-        DaneshjoiValication daneshjoiValication = new DaneshjoiValication();
-        // validation name ...
-
-        if (validateInternation.checkMeli(international) &&
-                shenasnamehValidation.checkShen(shenasnameh) &&
-                daneshjoiValication.check(daneshjoi) &&
-                DateValidation.check(birthDate)) {
-            Daneshjo daneshjo = new Daneshjo(name, lastName, father, mother,
-                    international, shenasnameh, Date.valueOf(birthDate), daneshjoi, nameUnivercity,
-                    TypeUnivercity.getFromString(type), yearEnter, MaghtaTahsili.getFromString(maghta),
-                    international, GeneratePassword.generatePassword());
-            return daneshjo;
-        }
-        System.out.println("Wrong Information");
-        return null;
+        Daneshjo daneshjo = new Daneshjo(name, lastName, father, mother,
+                international, shenasnameh, Date.valueOf(birthDate), daneshjoi, nameUnivercity,
+                TypeUnivercity.getFromString(type), yearEnter, MaghtaTahsili.getFromString(maghta),
+                international, GeneratePassword.generatePassword());
+        return daneshjo;
     }
 
     //section Login
@@ -114,9 +105,12 @@ public class Run {
             case "1":
                 Daneshjo daneshjoLogin = login();
                 final long login = DaneshjoService.login(daneshjoLogin);
+                boolean loginAdmin = AdminService.login(daneshjoLogin);
                 if (login >= 1) {
                     UserPanel.showLoan();
                     UserPanel.selectLoan(login);
+                } else if (loginAdmin) {
+                    //todo add panel admin
                 } else {
                     basePanel();
                     start();
