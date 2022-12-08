@@ -30,7 +30,7 @@ public class UserPanel {
     public static void userPanel() {
         System.out.println("________________ \n" +
                 "1.request a loan\n" +
-                "2.Pay a loan" +
+                "2.Pay a loan\n" +
                 "3.quit");
     }
 
@@ -82,8 +82,8 @@ public class UserPanel {
                 showLoanById(id);
                 break;
             case "5":
-                Run.basePanel();
-                Run.start();
+                UserPanel.userPanel();
+                UserPanel.selectUserPanel(id);
                 break;
             default:
                 break;

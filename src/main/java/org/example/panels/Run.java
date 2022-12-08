@@ -141,7 +141,8 @@ public class Run {
                     UserPanel.userPanel();
                     UserPanel.selectUserPanel(login);
                 } else if (loginAdmin) {
-                    //todo add panel admin
+                    AdminPanel.panel();
+                    AdminPanel.select();
                 } else {
                     basePanel();
                     start();

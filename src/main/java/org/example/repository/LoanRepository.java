@@ -28,7 +28,6 @@ public class LoanRepository extends RepositoryImpl<Loans, Long> {
     }
 
     public static List<Loans> daneshjoLoans(Long id) {
-        final LoanRepository loanRepository = new LoanRepository();
         Session session = SingleTonConnection.getInstance().openSession();
         try {
             Query q = session.createQuery("select l from Loans l where l.daneshjo.id = :id");
