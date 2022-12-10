@@ -68,7 +68,7 @@ public class Validation {
         String resultInformational = international;
         while (!binternational) {
             System.out.println("Wrong International ! ");
-            System.out.print("Enter Your International Code : ");
+            System.out.print("Enter Your Information again : ");
             String meli = Main.scanner.nextLine();
             binternational = validateInternation.checkMeli(meli);
             resultInformational = meli;
@@ -82,7 +82,7 @@ public class Validation {
         boolean matches = year.matches(String.valueOf(pattern));
         String newYear = year;
         while (!matches) {
-            System.out.print("Wrong Year for example Enter '1400' : ");
+            System.out.print("Wrong information Enter again : ");
             newYear = Main.scanner.nextLine();
             matches = newYear.matches(String.valueOf(pattern));
         }
@@ -112,9 +112,20 @@ public class Validation {
             newNum = Main.scanner.nextLine();
             matches = newNum.matches(String.valueOf(pattern));
         }
-        return univercity(Integer.parseInt(newNum));
+        return newNum;
     }
 
+    public static String numberOne(String number) throws Invalid {
+        Pattern pattern = Pattern.compile("^\\d+$");
+        boolean matches = number.matches(String.valueOf(pattern));
+        String newNum = number;
+        while (!matches) {
+            System.out.print("Enter Number again : ");
+            newNum = Main.scanner.nextLine();
+            matches = newNum.matches(String.valueOf(pattern));
+        }
+        return newNum;
+    }
     //section univercity
     public static String univercity(int uni){
         if (uni == 1)

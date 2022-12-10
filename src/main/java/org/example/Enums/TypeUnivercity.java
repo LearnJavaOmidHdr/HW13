@@ -7,8 +7,7 @@ public enum TypeUnivercity {
     zarfiatMazad,
     payamnor,
     elmikarbordi,
-    azad,
-    dolati;
+    azad;
     public static TypeUnivercity getFromString(String name) {
         for (TypeUnivercity value : TypeUnivercity.values()) {
             if (value.toString().equalsIgnoreCase(name)) {

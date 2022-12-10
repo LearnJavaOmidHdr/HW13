@@ -5,12 +5,14 @@ import org.example.Enums.TypeLoan;
 import org.example.Main;
 import org.example.Services.DaneshjoService;
 import org.example.Services.LoansService;
+import org.example.entity.Conditions;
 import org.example.entity.Daneshjo;
 import org.example.entity.Loans;
 import org.example.exception.InvalidException;
 import org.example.exception.NullpointerExeption;
 import org.example.repository.DaneshjoRepository;
 import org.example.repository.LoanRepository;
+import org.example.validation.Validation;
 import org.omg.CORBA.DynAnyPackage.Invalid;
 
 import java.sql.SQLException;
@@ -89,6 +91,19 @@ public class UserPanel {
                 break;
         }
     }
+    //section get information
+    private static Conditions getInformation() throws Invalid {
+        System.out.print("Enter International of your wife : ");
+        String wifeInternational = Main.scanner.nextLine();
+        wifeInternational = Validation.validInternational(wifeInternational);
+        System.out.print("Enter your Gharardad Number : ");
+        String numberGharardad = Main.scanner.nextLine();
+        numberGharardad = Validation.numberOne(numberGharardad);
+        System.out.print("Enter Your address : ");
+        String address = Main.scanner.nextLine();
+        address = Validation.validString(address);
+        return new Conditions(wifeInternational,numberGharardad,address);
+    }
 
     //section show loan By id
     private static void showLoanById(long id) {
@@ -112,7 +127,7 @@ public class UserPanel {
         if (answer.contains("y")) {
             if (real.contains("kardani") || real.contains("karshenasiPeyvasteh") || real.contains("karshenasiNaPeyvasteh")) {
                 if (LoansService.checkLoanExists(id, typeLoan)) {
-                    final Loans kardani = createLoan(fullDaneshjo, typeLoan, 1900000L);
+                    final Loans kardani = createLoan(fullDaneshjo, typeLoan, 1900000L,60);
                     loansService.create(kardani);
                     UserPanel.showLoan();
                     UserPanel.selectLoan(id);
@@ -124,7 +139,7 @@ public class UserPanel {
             } else if (real.contains("karshenasiArshadPeyvasteh") || real.contains("karshenasiArshadNaPeyvasteh") || real.contains("doctoraHerfei") || real.contains("doctoaPeyvasteh,")) {
 
                 if (LoansService.checkLoanExists(id, typeLoan)) {
-                    final Loans arshad = createLoan(fullDaneshjo, typeLoan, 2250000L);
+                    final Loans arshad = createLoan(fullDaneshjo, typeLoan, 2250000L,60);
                     loansService.create(arshad);
                     UserPanel.showLoan();
                     UserPanel.selectLoan(id);
@@ -135,7 +150,7 @@ public class UserPanel {
                 }
             } else {
                 if (LoansService.checkLoanExists(id, typeLoan)) {
-                    final Loans doctora = createLoan(fullDaneshjo, typeLoan, 2600000L);
+                    final Loans doctora = createLoan(fullDaneshjo, typeLoan, 2600000L,60);
                     loansService.create(doctora);
                     UserPanel.showLoan();
                     UserPanel.selectLoan(id);
@@ -161,7 +176,7 @@ public class UserPanel {
         if (answer.contains("y")) {
             if (real.contains("kardani") || real.contains("karshenasiPeyvasteh") || real.contains("karshenasiNaPeyvasteh")) {
                 if (LoansService.checkLoanExists(id, typeLoan)) {
-                    final Loans kardani = createLoan(fullDaneshjo, typeLoan, 1300000L);
+                    final Loans kardani = createLoan(fullDaneshjo, typeLoan, 1300000L,60);
                     loansService.create(kardani);
                     UserPanel.showLoan();
                     UserPanel.selectLoan(id);
@@ -173,7 +188,7 @@ public class UserPanel {
             } else if (real.contains("karshenasiArshadPeyvasteh") || real.contains("karshenasiArshadNaPeyvasteh") || real.contains("doctoraHerfei") || real.contains("doctoaPeyvasteh,")) {
 
                 if (LoansService.checkLoanExists(id, typeLoan)) {
-                    final Loans arshad = createLoan(fullDaneshjo, typeLoan, 2600000L);
+                    final Loans arshad = createLoan(fullDaneshjo, typeLoan, 2600000L,60);
                     loansService.create(arshad);
                     UserPanel.showLoan();
                     UserPanel.selectLoan(id);
@@ -184,7 +199,7 @@ public class UserPanel {
                 }
             } else {
                 if (LoansService.checkLoanExists(id, typeLoan)) {
-                    final Loans doctora = createLoan(fullDaneshjo, typeLoan, 65000000L);
+                    final Loans doctora = createLoan(fullDaneshjo, typeLoan, 65000000L,60);
                     loansService.create(doctora);
                     UserPanel.showLoan();
                     UserPanel.selectLoan(id);
@@ -213,7 +228,17 @@ public class UserPanel {
         switch (Main.scanner.nextLine()) {
             case "1":
                 if (LoansService.checkLoanExists(id, typeLoan)) {
-                    final Loans Tehran = createLoan(fullDaneshjo, typeLoan, 32000000L);
+                    final Conditions information = getInformation();
+                    Daneshjo byId = daneshjoRepository.findById(id, Daneshjo.class);
+                    final boolean item = daneshjoRepository.existInternational(byId.getInternationalCode());
+                    final boolean item2 = daneshjoRepository.existInternational(information.getWifeInternational());
+                    if (item || item2){
+                        System.out.println("You or your wife take it this loan already \n" +
+                                "you cant request anymore ! ");
+                        break;
+                    }
+                    final Loans Tehran = createLoan(fullDaneshjo, typeLoan, 32000000L,60);
+                    Tehran.setConditions(information);
                     loansService.create(Tehran);
                 } else {
                     System.out.println("You have already a loan !! ");
@@ -223,7 +248,16 @@ public class UserPanel {
                 break;
             case "2":
                 if (LoansService.checkLoanExists(id, typeLoan)) {
-                    final Loans Kalanshahr = createLoan(fullDaneshjo, typeLoan, 26000000L);
+                    final Conditions information = getInformation();
+                    Daneshjo byId = daneshjoRepository.findById(id, Daneshjo.class);
+                    final boolean item = daneshjoRepository.existInternational(byId.getInternationalCode());
+                    final boolean item2 = daneshjoRepository.existInternational(information.getWifeInternational());
+                    if (item || item2){
+                        System.out.println("You or your wife take it this loan already \n" +
+                                "you cant request anymore ! ");
+                        break;
+                    }
+                    final Loans Kalanshahr = createLoan(fullDaneshjo, typeLoan, 26000000L,60);
                     loansService.create(Kalanshahr);
                 } else {
                     System.out.println("You have already a loan !! ");
@@ -233,7 +267,16 @@ public class UserPanel {
                 break;
             case "3":
                 if (LoansService.checkLoanExists(id, typeLoan)) {
-                    final Loans Other = createLoan(fullDaneshjo, typeLoan, 19500000L);
+                    final Conditions information = getInformation();
+                    Daneshjo byId = daneshjoRepository.findById(id, Daneshjo.class);
+                    final boolean item = daneshjoRepository.existInternational(byId.getInternationalCode());
+                    final boolean item2 = daneshjoRepository.existInternational(information.getWifeInternational());
+                    if (item || item2){
+                        System.out.println("You or your wife take it this loan already \n" +
+                                "you cant request anymore ! ");
+                        break;
+                    }
+                    final Loans Other = createLoan(fullDaneshjo, typeLoan, 19500000L,60);
                     loansService.create(Other);
                 } else {
                     System.out.println("You have already a loan !! ");
@@ -275,14 +318,13 @@ public class UserPanel {
                 "2. Kalanshahr '26/000/000' \n" +
                 "3. Other '19/500/000'\n" +
                 "4. Back");
-        System.out.println("Select Your City : ");
     }
 
     //section create Loan
-    public static Loans createLoan(Daneshjo id, String typeLoan, Long amount) throws InvalidException {
+    public static Loans createLoan(Daneshjo id, String typeLoan, Long amount,int tedadAghsat) throws InvalidException {
         try {
             LocalDate date = LocalDate.now();
-            Loans loans = new Loans(Status.request, id, date, TypeLoan.getFromString(typeLoan), amount);
+            Loans loans = new Loans(Status.request, id, date, TypeLoan.getFromString(typeLoan), amount,tedadAghsat, tedadAghsat);
             return loans;
         } catch (Exception e) {
             throw new InvalidException("Wrong Input");

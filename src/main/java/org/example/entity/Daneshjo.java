@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.Enums.StatusDaneshjo;
 import org.example.Enums.TypeUnivercity;
 import org.example.Enums.MaghtaTahsili;
 import javax.persistence.*;
@@ -60,6 +61,10 @@ public class Daneshjo {
     @Enumerated(value = EnumType.STRING)
     private MaghtaTahsili maghtaTahsili;
 
+    @Column(name = "status_daneshjo",nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    private StatusDaneshjo statusDaneshjo;
+
     @Column(name = "user_name", unique = true,nullable = false)
     private String userName;
 
@@ -70,7 +75,7 @@ public class Daneshjo {
     private CartBank cartNumber;
 
 
-    public Daneshjo(String name, String lastName, String fatherName, String motherName, String internationalCode, String shenasname, Date brithDate, String daneshjoiNumber, String nameUnivercity, TypeUnivercity typeUnivercity, String yearEnter, MaghtaTahsili maghtaTahsili, String userName, String password , CartBank cartNumber) {
+    public Daneshjo(String name, String lastName, String fatherName, String motherName, String internationalCode, String shenasname, Date brithDate, String daneshjoiNumber, String nameUnivercity, TypeUnivercity typeUnivercity, String yearEnter, MaghtaTahsili maghtaTahsili, String userName, String password , CartBank cartNumber,StatusDaneshjo statusDaneshjo) {
         this.name = name;
         this.lastName = lastName;
         this.fatherName = fatherName;
@@ -86,6 +91,7 @@ public class Daneshjo {
         this.userName = userName;
         this.password = password;
         this.cartNumber=cartNumber;
+        this.statusDaneshjo = statusDaneshjo;
     }
 
     public Daneshjo(String userName, String password) {

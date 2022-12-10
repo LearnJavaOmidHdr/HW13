@@ -6,6 +6,8 @@ import org.example.exception.UserNotFound;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
+import org.hibernate.query.Query;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -40,4 +42,23 @@ public class DaneshjoRepository extends RepositoryImpl<Daneshjo, Long> implement
             session.close();
         }
     }
+
+    public static boolean existInternational(String string) {
+        Session session = SingleTonConnection.getInstance().openSession();
+        Transaction transaction = null;
+        try {
+            session.beginTransaction();
+            final NativeQuery nativeQuery = session.createNativeQuery("select * from loans where wifeinternational = ?;");
+            nativeQuery.setParameter(1,string);
+            final List list = nativeQuery.list();
+            return list.size() > 0 ;
+
+        }catch (Exception e) {
+            transaction.rollback();
+            throw new UserNotFound();
+        }finally {
+            session.close();
+        }
+    }
+
 }

@@ -1,9 +1,11 @@
 package org.example.panels;
 
+import org.example.Enums.StatusDaneshjo;
 import org.example.Enums.TypeUnivercity;
 import org.example.Main;
 import org.example.Services.AdminService;
 import org.example.Services.DaneshjoService;
+import org.example.Utils.CallMaghtaByNumber;
 import org.example.entity.CartBank;
 import org.example.entity.Daneshjo;
 import org.example.Enums.MaghtaTahsili;
@@ -30,44 +32,43 @@ public class Run {
     //section Register
     public static Daneshjo register() throws DataFormatException, Invalid {
 
-        System.out.print("Enter your Information Again : ");
+//        /*
+        System.out.print("Enter your Name : ");
         String name = Main.scanner.nextLine();
-        Validation.validString(name);
+        name = Validation.validString(name);
 
         System.out.print("LastName :");
-        final String lastName = Main.scanner.nextLine();
-        Validation.validString(lastName);
+        String lastName = Main.scanner.nextLine();
+        lastName = Validation.validString(lastName);
 
         System.out.print("Father Name : ");
-        final String father = Main.scanner.nextLine();
-        Validation.validString(father);
+        String father = Main.scanner.nextLine();
+        father = Validation.validString(father);
 
         System.out.print("Mother Name : ");
-        final String mother = Main.scanner.nextLine();
-        Validation.validString(mother);
+        String mother = Main.scanner.nextLine();
+        mother = Validation.validString(mother);
 
         System.out.print("International Code : ");
-        final String international = Main.scanner.nextLine();
-        Validation.validInternational(international);
+        String international = Main.scanner.nextLine();
+        international = Validation.validInternational(international);
 
         System.out.print("Number Shenasnameh : ");
-        final String shenasnameh = Main.scanner.nextLine();
-        Validation.validShen(shenasnameh);
+        String shenasnameh = Main.scanner.nextLine();
+        shenasnameh = Validation.validShen(shenasnameh);
 
         System.out.print("Enter birthDate \n"+
                 "For Example (1400-05-06) : ");
-        final String birthDate = Main.scanner.nextLine();
-        Validation.validDate(birthDate);
+        String birthDate = Main.scanner.nextLine();
+        birthDate = Validation.validDate(birthDate);
 
         System.out.print("Enter Daneshjoi Number : ");
-        final String daneshjoi = Main.scanner.nextLine();
-        Validation.validInternational(daneshjoi);
-        // i think daneshjoi name is same as national code
+        String daneshjoi = Main.scanner.nextLine();
+        daneshjoi = Validation.validInternational(daneshjoi);
+        // i think validation daneshjoi number is same as national code
         System.out.print("Enter name Univercity : ");
-        final String nameUnivercity = Main.scanner.nextLine();
-        Validation.validString(nameUnivercity);
-
-
+        String nameUnivercity = Main.scanner.nextLine();
+        nameUnivercity = Validation.validString(nameUnivercity);
         System.out.println("________________ \n" +
                 "1. shabaneh\n" +
                 "2. gheyreEntefai\n" +
@@ -75,18 +76,18 @@ public class Run {
                 "4. zarfiatMazad\n" +
                 "5. payamnor\n" +
                 "6. elmikarbordi\n" +
-                "7. azad\n" +
-                "8. dolati");
+                "7. azad\n");
         System.out.print("Type Univercity : ");
-        final String type = Main.scanner.nextLine();
-        final String typeUnivercity = Validation.between(type);
+        String type = Main.scanner.nextLine();
+        type = Validation.between(type);
+        String typeUnivercity = CallMaghtaByNumber.typeUnivercity(Integer.parseInt(type));
 
-        System.out.print("Year Enter : ");
-        final String yearEnter = Main.scanner.nextLine();
-        Validation.validYear(yearEnter);
-
+        System.out.print("Year Enter\n");
+        System.out.print("For example Enter '1400' : ");
+        String yearEnter = Main.scanner.nextLine();
+        yearEnter = Validation.validYear(yearEnter);
+        
         System.out.print("Maghta Tahsili : ");
-        final String maghta = Main.scanner.nextLine();
 
         System.out.println("________________ \n" +
                 "1. kardani\n"+
@@ -97,25 +98,28 @@ public class Run {
                 "6. doctoraHerfei\n"+
                 "7. doctoaPeyvasteh\n"+
                 "8. doktoraTakhasosiNapeyvasteh");
-        final String tahsili = Validation.between(maghta);
+        String maghta = Main.scanner.nextLine();
+        maghta = Validation.between(maghta);
+        String tahsili = CallMaghtaByNumber.maghtaTahsili(Integer.parseInt(maghta));
 
         System.out.print("Enter Your CartBank Number : ");
         final String bankNumber = Main.scanner.nextLine();
         Validation.cartNumber(bankNumber);
 
         System.out.print("Enter cvv2 : ");
-        final String cvv2 = Main.scanner.nextLine();
-        Validation.validYear(cvv2);
+        String cvv2 = Main.scanner.nextLine();
+        cvv2 = Validation.validYear(cvv2);
         
         CartBank cartNumber = new CartBank(bankNumber,cvv2,900000000000L);
 
+
         /*
-        String name = "omid" , lastName = "heidary" , father = "personal" , mother = "personal",international ="4310831877" , daneshjoi = "1234",shenasnameh="55",birthDate ="1994-05-06" , yearEnter = "2001" ,nameUnivercity = "parsian" , type ="azad" , maghta = "kardani";
+        String name = "omid" , lastName = "heidary" , father = "personal" , mother = "personal",international ="4310831877" , daneshjoi = "4310831877",shenasnameh="55",birthDate ="1994-05-06" , yearEnter = "2001" ,nameUnivercity = "parsian" , TypeUnivercity.getFromString("azad") , MaghtaTahsili.getFromString("kardani");
          */
         Daneshjo daneshjo = new Daneshjo(name, lastName, father, mother,
                 international, shenasnameh, Date.valueOf(birthDate), daneshjoi, nameUnivercity,
                 TypeUnivercity.getFromString(typeUnivercity), yearEnter, MaghtaTahsili.getFromString(tahsili),
-                international, GeneratePassword.generatePassword(),cartNumber);
+                international, GeneratePassword.generatePassword(),cartNumber, StatusDaneshjo.daneshjo);
         return daneshjo;
     }
 
