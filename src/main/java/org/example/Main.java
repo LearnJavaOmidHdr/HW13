@@ -23,10 +23,11 @@ public class Main {
     public final static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws NullpointerExeption, DataFormatException, SQLException, InvalidException, Invalid {
-        Run.basePanel();
-        Run.start();
+//        Run.basePanel();
+//        Run.start();
 
-//        DaneshjoRepository daneshjoRepository = new DaneshjoRepository();
+        DaneshjoRepository daneshjoRepository = new DaneshjoRepository();
+        System.out.println(daneshjoRepository.getStatus(1L));
 //        final Long aLong = daneshjoRepository.existInternational("4310831877");
 //        System.out.println(aLong);
 

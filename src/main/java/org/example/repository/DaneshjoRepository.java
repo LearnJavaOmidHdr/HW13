@@ -61,4 +61,21 @@ public class DaneshjoRepository extends RepositoryImpl<Daneshjo, Long> implement
         }
     }
 
+    public String getStatus(Long id) {
+        Session session = SingleTonConnection.getInstance().openSession();
+        Transaction transaction = null;
+        try {
+            session.beginTransaction();
+            final Query<Daneshjo> query = session.createQuery("FROM Daneshjo WHERE id=:id", Daneshjo.class);
+            query.setParameter("id",id);
+            final Daneshjo daneshjo = query.uniqueResult();
+            return daneshjo.getStatusDaneshjo().toString();
+        }catch (Exception e) {
+            transaction.rollback();
+            throw new UserNotFound();
+        }finally {
+            session.close();
+        }
+
+    }
 }

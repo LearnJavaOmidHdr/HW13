@@ -21,4 +21,11 @@ public class DaneshjoService extends ServiceImpl<DaneshjoRepository, Daneshjo, L
         System.out.println("wrong User name or Password ");
         return 0;
     }
+
+    public boolean getStatus(Long login) {
+        DaneshjoRepository daneshjoRepository = new DaneshjoRepository();
+        //todo
+//        return daneshjoRepository.getStatus(Long login);
+        return false;
+    }
 }

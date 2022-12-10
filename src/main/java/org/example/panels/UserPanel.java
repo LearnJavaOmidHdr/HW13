@@ -44,12 +44,28 @@ public class UserPanel {
                 UserPanel.selectLoan(login);
                 break;
             case "2":
+                payLoan(login);
                 break;
             case "3":
                 Run.basePanel();
                 Run.start();
                 break;
         }
+    }
+
+    //section pay loan
+    private static void payLoan(Long login) {
+
+
+    }
+
+    //section status Daneshjo
+    public static boolean statusDaneshjo(Long login){
+        DaneshjoRepository daneshjoRepository = new DaneshjoRepository();
+        DaneshjoService daneshjoService = new DaneshjoService(daneshjoRepository);
+        daneshjoService.getStatus(login);
+        //todo 
+        return false;
     }
 
 

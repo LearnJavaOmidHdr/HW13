@@ -33,7 +33,6 @@ public class Loans {
 
     private Long amount;
 
-    //todo add this stuff
     private int tedadAghsat;
     private int aghsateBaghimandeh;
 
