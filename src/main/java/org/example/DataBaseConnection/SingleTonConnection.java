@@ -4,6 +4,7 @@ import lombok.NoArgsConstructor;
 import lombok.var;
 import org.example.entity.Daneshjo;
 import org.example.entity.Loans;
+import org.example.entity.Paid;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -21,6 +22,7 @@ public class SingleTonConnection {
             INSTANCE = new MetadataSources(registry)
                     .addAnnotatedClass(Daneshjo.class)
                     .addAnnotatedClass(Loans.class)
+                    .addAnnotatedClass(Paid.class)
                     .buildMetadata()
                     .buildSessionFactory();
         }

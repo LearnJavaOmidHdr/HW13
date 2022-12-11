@@ -42,5 +42,23 @@ public class LoanRepository extends RepositoryImpl<Loans, Long> {
             session.close();
         }
     }
+    //section list Loans
+    public static List<Loans> allLoans(){
+        Session session = SingleTonConnection.getInstance().openSession();
+        Transaction transaction = null;
+        try {
+            final Query<Loans> from_loans = session.createQuery("FROM Loans", Loans.class);
+            final List<Loans> list = from_loans.list();
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        } finally {
+            session.close();
+        }
+    }
+
+
 
 }
+

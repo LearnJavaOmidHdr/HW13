@@ -25,7 +25,6 @@ public class AdminService {
         final List<Loans> loans = adminRepository.daneshjoLoans();
         if (loans.size() < 1)
             System.out.println("There is No Request");
-
         for (int i = 0; i < loans.size(); i++) {
             if (loans.get(i).getStatus().toString().equals(string)) {
                 System.out.println("______________________________________");

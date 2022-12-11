@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.DataBaseConnection.SingleTonConnection;
+import org.example.Services.LoansService;
 import org.example.entity.Loans;
 import org.example.exception.InvalidException;
 import org.example.exception.NullpointerExeption;
@@ -23,13 +24,8 @@ public class Main {
     public final static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws NullpointerExeption, DataFormatException, SQLException, InvalidException, Invalid {
-//        Run.basePanel();
-//        Run.start();
-
-        DaneshjoRepository daneshjoRepository = new DaneshjoRepository();
-        System.out.println(daneshjoRepository.getStatus(1L));
-//        final Long aLong = daneshjoRepository.existInternational("4310831877");
-//        System.out.println(aLong);
+        Run.basePanel();
+        Run.start();
 
     }
 }

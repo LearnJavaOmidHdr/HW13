@@ -22,10 +22,8 @@ public class DaneshjoService extends ServiceImpl<DaneshjoRepository, Daneshjo, L
         return 0;
     }
 
-    public boolean getStatus(Long login) {
+    public String getStatus(Long login) {
         DaneshjoRepository daneshjoRepository = new DaneshjoRepository();
-        //todo
-//        return daneshjoRepository.getStatus(Long login);
-        return false;
+        return daneshjoRepository.getStatus(login);
     }
 }
