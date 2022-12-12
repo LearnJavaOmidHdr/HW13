@@ -32,6 +32,7 @@ public class Loans {
     private TypeLoan typeLoan;
 
     private Long amount;
+    private Long amountBaghimandeh;
 
     private int tedadAghsat;
     private int aghsateBaghimandeh;
@@ -39,12 +40,13 @@ public class Loans {
     @Embedded
     private Conditions conditions;
 
-    public Loans(Status status, Daneshjo daneshjo, LocalDate date, TypeLoan typeLoan, Long amount, int tedadAghsat, int aghsateBaghimandeh) {
+    public Loans(Status status, Daneshjo daneshjo, LocalDate date, TypeLoan typeLoan, Long amount,Long amountBaghimandeh, int tedadAghsat, int aghsateBaghimandeh) {
         this.status = status;
         this.daneshjo = daneshjo;
         this.date = date;
         this.typeLoan = typeLoan;
         this.amount = amount;
+        this.amountBaghimandeh = amountBaghimandeh;
         this.tedadAghsat = tedadAghsat;
         this.aghsateBaghimandeh = aghsateBaghimandeh;
     }

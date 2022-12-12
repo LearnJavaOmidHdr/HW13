@@ -98,4 +98,8 @@ public class Daneshjo {
         this.userName = userName;
         this.password = password;
     }
+
+    public Daneshjo(CartBank cartNumber) {
+        this.cartNumber = cartNumber;
+    }
 }

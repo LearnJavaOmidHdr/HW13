@@ -6,10 +6,7 @@ import org.example.Main;
 import org.example.Services.DaneshjoService;
 import org.example.Services.LoansService;
 import org.example.Services.PaidService;
-import org.example.entity.Conditions;
-import org.example.entity.Daneshjo;
-import org.example.entity.Loans;
-import org.example.entity.Paid;
+import org.example.entity.*;
 import org.example.exception.InvalidException;
 import org.example.exception.NullpointerExeption;
 import org.example.repository.DaneshjoRepository;
@@ -52,13 +49,19 @@ public class UserPanel {
                     break;
                 } else {
                     System.out.println("You aren't Daneshjo \nYou cant request a loan");
+                    userPanel();
+                    selectUserPanel(login);
                     break;
                 }
             case "2":
                 if (status.equals("fareghTahsil")) {
                     showMyloan(Math.toIntExact(login));
                     final boolean vaziyat = payLoan(login);
-                    if (vaziyat) System.out.println("Paid Successfully :) ");
+                    if (vaziyat){
+                        System.out.println("Paid Successfully :) ");
+                        UserPanel.userPanel();
+                        UserPanel.selectUserPanel(login);
+                    }
                     else System.out.println("Failed To pay !! ");
                     break;
                 } else {
@@ -83,27 +86,129 @@ public class UserPanel {
         DaneshjoService ds = new DaneshjoService(new DaneshjoRepository());
         LoansService ls = new LoansService(new LoanRepository());
 
-        Daneshjo daneshjoPaid = ds.findById(login, Daneshjo.class);
-        final Loans LoansById = ls.findById(idL, Loans.class);
-        Loans loans = LoansById;
+        Daneshjo daneshjoFind = ds.findById(login, Daneshjo.class);
+        Loans LoansFind = ls.findById(idL, Loans.class);
+        Loans loans = LoansFind;
         int aghsateBaghimandeh = loans.getAghsateBaghimandeh();
 
-        if (aghsateBaghimandeh > 1) {
+        if (aghsateBaghimandeh > 0) {
             LocalDate date = LocalDate.now();
-            paid.setDaneshjo(daneshjoPaid);
+            paid.setDaneshjo(daneshjoFind);
             paid.setDate(date);
             paid.setPeyghiri(GeneratePassword.generatePassword());
-            paid.setLoan(LoansById);
+            paid.setLoan(LoansFind);
             PaidService paidService = new PaidService(new PaidRepository());
             try {
                 paidService.create(paid);
                 aghsateBaghimandeh -= 1;
                 if (aghsateBaghimandeh == 0) {
                     loans.setAghsateBaghimandeh(aghsateBaghimandeh);
+                    Long inventory = daneshjoFind.getCartNumber().getInventory();
+                    final CartBank cartNumber = daneshjoFind.getCartNumber();
+                    final Long amount = loans.getAmount();
+                    final double maghlagBaSod = amount * 0.1 + amount;
+                    final double mablaghHarGhest = maghlagBaSod / 372;
+                    final double paySixOnce = mablaghHarGhest * 6;
+                    final long pay = (long ) paySixOnce;
+                    inventory -= pay;
+                    cartNumber.setInventory(inventory);
+                    Long amountBaghimandeh = loans.getAmountBaghimandeh();
+                    amountBaghimandeh -= pay;
+                    loans.setAmountBaghimandeh(amountBaghimandeh);
                     ls.delete(loans);
+                    System.out.println("Vam tasvieh Shod :) ");
+                    return true;
+                }else if (aghsateBaghimandeh <= 60 && aghsateBaghimandeh > 48){      //year one
+                    loans.setAghsateBaghimandeh(aghsateBaghimandeh);
+                    Long inventory = daneshjoFind.getCartNumber().getInventory();
+                    final CartBank cartNumber = daneshjoFind.getCartNumber();
+                    final Long amount = loans.getAmount();
+                    final double maghlagBaSod = amount * 0.1 + amount;
+                    final double mablaghHarGhest = maghlagBaSod / 372 * 12 ;
+                    final double paySixOnce = mablaghHarGhest / 2;
+                    final long pay = (long ) paySixOnce;
+                    inventory -= pay;
+                    cartNumber.setInventory(inventory);
+                    Long amountBaghimandeh = loans.getAmountBaghimandeh();
+                    amountBaghimandeh -= pay;
+                    loans.setAmountBaghimandeh(amountBaghimandeh);
+                    daneshjoFind.setCartNumber(cartNumber);;
+                    ds.update(daneshjoFind);
+                    ls.update(loans);
+
+                }else if (aghsateBaghimandeh <= 48 && aghsateBaghimandeh > 36 ){  //year two
+                    loans.setAghsateBaghimandeh(aghsateBaghimandeh);
+                    Long inventory = daneshjoFind.getCartNumber().getInventory();
+                    final CartBank cartNumber = daneshjoFind.getCartNumber();
+                    final Long amount = loans.getAmount();
+                    final double maghlagBaSod = amount * 0.1 + amount;
+                    final double mablaghHarGhest = maghlagBaSod / 372 * 24;
+                    final double paySixOnce = mablaghHarGhest * 2;
+                    final long pay = (long ) paySixOnce;
+                    inventory -= pay;
+                    cartNumber.setInventory(inventory);
+                    Long amountBaghimandeh = loans.getAmountBaghimandeh();
+                    amountBaghimandeh -= pay;
+                    loans.setAmountBaghimandeh(amountBaghimandeh);
+                    daneshjoFind.setCartNumber(cartNumber);;
+                    ds.update(daneshjoFind);
+                    ls.update(loans);
+
+                }else if(aghsateBaghimandeh <= 36 && aghsateBaghimandeh > 24 ){   // year three
+                    loans.setAghsateBaghimandeh(aghsateBaghimandeh);
+                    Long inventory = daneshjoFind.getCartNumber().getInventory();
+                    final CartBank cartNumber = daneshjoFind.getCartNumber();
+                    final Long amount = loans.getAmount();
+                    final double maghlagBaSod = amount * 0.1 + amount;
+                    final double mablaghHarGhest = maghlagBaSod / 372 * 48;
+                    final double paySixOnce = mablaghHarGhest / 2;
+                    final long pay = (long ) paySixOnce;
+                    inventory -= pay;
+                    cartNumber.setInventory(inventory);
+                    Long amountBaghimandeh = loans.getAmountBaghimandeh();
+                    amountBaghimandeh -= pay;
+                    loans.setAmountBaghimandeh(amountBaghimandeh);
+                    daneshjoFind.setCartNumber(cartNumber);;
+                    ds.update(daneshjoFind);
+                    ls.update(loans);
+
+                }else if (aghsateBaghimandeh <= 24 && aghsateBaghimandeh > 12 ){  //year four
+                    loans.setAghsateBaghimandeh(aghsateBaghimandeh);
+                    Long inventory = daneshjoFind.getCartNumber().getInventory();
+                    final CartBank cartNumber = daneshjoFind.getCartNumber();
+                    final Long amount = loans.getAmount();
+                    final double maghlagBaSod = amount * 0.1 + amount;
+                    final double mablaghHarGhest = maghlagBaSod / 372 * 96;
+                    final double paySixOnce = mablaghHarGhest / 2;
+                    final long pay = (long ) paySixOnce;
+                    inventory -= pay;
+                    cartNumber.setInventory(inventory);
+                    Long amountBaghimandeh = loans.getAmountBaghimandeh();
+                    amountBaghimandeh -= pay;
+                    loans.setAmountBaghimandeh(amountBaghimandeh);
+                    daneshjoFind.setCartNumber(cartNumber);;
+                    ds.update(daneshjoFind);
+                    ls.update(loans);
+
+                }else if (aghsateBaghimandeh <= 12 && aghsateBaghimandeh > 0 ){   //year five
+                    loans.setAghsateBaghimandeh(aghsateBaghimandeh);
+                    Long inventory = daneshjoFind.getCartNumber().getInventory();
+                    final CartBank cartNumber = daneshjoFind.getCartNumber();
+                    final Long amount = loans.getAmount();
+                    final double maghlagBaSod = amount * 0.1 + amount;
+                    final double mablaghHarGhest = maghlagBaSod / 372 * 192;
+                    final double paySixOnce = mablaghHarGhest / 2;
+                    final long pay = (long ) paySixOnce;
+                    inventory -= pay;
+                    cartNumber.setInventory(inventory);
+                    Long amountBaghimandeh = loans.getAmountBaghimandeh();
+                    amountBaghimandeh -= pay;
+                    loans.setAmountBaghimandeh(amountBaghimandeh);
+                    daneshjoFind.setCartNumber(cartNumber);;
+                    ds.update(daneshjoFind);
+                    ls.update(loans);
+
                 }
-                loans.setAghsateBaghimandeh(aghsateBaghimandeh);
-                ls.update(loans);
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -391,7 +496,8 @@ public class UserPanel {
     public static Loans createLoan(Daneshjo id, String typeLoan, Long amount, int tedadAghsat) throws InvalidException {
         try {
             LocalDate date = LocalDate.now();
-            Loans loans = new Loans(Status.request, id, date, TypeLoan.getFromString(typeLoan), amount, tedadAghsat, tedadAghsat);
+            double amountBaghimandeh = (amount * 0.1) + amount;
+            Loans loans = new Loans(Status.request, id, date, TypeLoan.getFromString(typeLoan), amount, (long) amountBaghimandeh, tedadAghsat, tedadAghsat);
             return loans;
         } catch (Exception e) {
             throw new InvalidException("Wrong Input");
