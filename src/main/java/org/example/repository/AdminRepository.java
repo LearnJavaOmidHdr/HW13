@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -39,16 +40,30 @@ public class AdminRepository {
         Transaction transaction = null;
         try {
             final Query<Loans> from_loans = session.createQuery("FROM Loans", Loans.class);
-//            final Query<Loans> from_loans = session.createQuery("FROM Loans where status=?0", Loans.class);
-//            from_loans.setParameter(0,str);
             final List<Loans> list = from_loans.list();
             return list;
         } catch (Exception e) {
             e.printStackTrace();
+            transaction.rollback();
             throw new RuntimeException();
         } finally {
             session.close();
         }
+    }
 
+    public static List daneshjoFareghTahsili(String status) {
+        Session session = SingleTonConnection.getInstance().openSession();
+        Transaction transaction = null;
+        try {
+            Query q = session.createQuery("select l from Loans l where l.daneshjo.statusDaneshjo = :id");
+            q.setParameter("id",status);
+            return q.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            transaction.rollback();
+            throw new RuntimeException();
+        } finally {
+            session.close();
+        }
     }
 }

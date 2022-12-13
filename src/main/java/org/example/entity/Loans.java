@@ -31,8 +31,8 @@ public class Loans {
     @Enumerated(value = EnumType.STRING)
     private TypeLoan typeLoan;
 
-    private Long amount;
-    private Long amountBaghimandeh;
+    private double amount;
+    private double amountBaghimandeh;
 
     private int tedadAghsat;
     private int aghsateBaghimandeh;
@@ -40,7 +40,7 @@ public class Loans {
     @Embedded
     private Conditions conditions;
 
-    public Loans(Status status, Daneshjo daneshjo, LocalDate date, TypeLoan typeLoan, Long amount,Long amountBaghimandeh, int tedadAghsat, int aghsateBaghimandeh) {
+    public Loans(Status status, Daneshjo daneshjo, LocalDate date, TypeLoan typeLoan, double amount,double amountBaghimandeh, int tedadAghsat, int aghsateBaghimandeh) {
         this.status = status;
         this.daneshjo = daneshjo;
         this.date = date;

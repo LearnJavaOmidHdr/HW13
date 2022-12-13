@@ -24,7 +24,7 @@ public class AdminPanel {
                 findAll();
                 break;
             case "2":
-                confirmLoan();
+                fareghTahsiliDaneshjo();
                 break;
 
                 
@@ -32,7 +32,7 @@ public class AdminPanel {
     }
 
     //section confirm Loan
-    private static void confirmLoan() throws Invalid {
+    private static void fareghTahsiliDaneshjo() throws Invalid {
         AdminService adminservice = new AdminService();
         System.out.print("Enter Id to Confirm : ");
         String confirm = Main.scanner.nextLine();

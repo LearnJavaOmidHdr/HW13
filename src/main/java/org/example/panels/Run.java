@@ -111,8 +111,6 @@ public class Run {
         cvv2 = Validation.validYear(cvv2);
         
         CartBank cartNumber = new CartBank(bankNumber,cvv2,900000000000L);
-
-
         /*
         String name = "omid" , lastName = "heidary" , father = "personal" , mother = "personal",international ="4310831877" , daneshjoi = "4310831877",shenasnameh="55",birthDate ="1994-05-06" , yearEnter = "2001" ,nameUnivercity = "parsian" , TypeUnivercity.getFromString("azad") , MaghtaTahsili.getFromString("kardani");
          */

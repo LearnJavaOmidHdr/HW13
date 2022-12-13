@@ -34,7 +34,8 @@ public class UserPanel {
         System.out.println("________________ \n" +
                 "1.request a loan\n" +
                 "2.Pay a loan\n" +
-                "3.quit");
+                "3.Show payed loan\n"+
+                "4.quit");
     }
 
     public static void selectUserPanel(Long login) throws DataFormatException, SQLException, NullpointerExeption, InvalidException, Invalid {
@@ -69,6 +70,17 @@ public class UserPanel {
                     break;
                 }
             case "3":
+                PaidService paidService = new PaidService(new PaidRepository());
+                final List<Paid> paids = paidService.listPaid(login);
+                paids.forEach(paid -> {
+                    System.out.println("__________________________________________________");
+                    System.out.println("Date : "+paid.getDate());
+                    System.out.println("Code Peyghiri : " + paid.getPeyghiri());
+                    System.out.println("Type loan is : " + paid.getLoan().getTypeLoan());
+                    System.out.println("__________________________________________________");
+                });
+                break;
+            case "4":
                 Run.basePanel();
                 Run.start();
                 break;
@@ -104,110 +116,90 @@ public class UserPanel {
                 if (aghsateBaghimandeh == 0) {
                     loans.setAghsateBaghimandeh(aghsateBaghimandeh);
                     Long inventory = daneshjoFind.getCartNumber().getInventory();
-                    final CartBank cartNumber = daneshjoFind.getCartNumber();
-                    final Long amount = loans.getAmount();
-                    final double maghlagBaSod = amount * 0.1 + amount;
-                    final double mablaghHarGhest = maghlagBaSod / 372;
-                    final double paySixOnce = mablaghHarGhest * 6;
-                    final long pay = (long ) paySixOnce;
-                    inventory -= pay;
+                    CartBank cartNumber = daneshjoFind.getCartNumber();
+                    double amount = loans.getAmount();
+                    inventory -= loans.getAghsateBaghimandeh();
                     cartNumber.setInventory(inventory);
-                    Long amountBaghimandeh = loans.getAmountBaghimandeh();
-                    amountBaghimandeh -= pay;
-                    loans.setAmountBaghimandeh(amountBaghimandeh);
+                    daneshjoFind.setCartNumber(cartNumber);;
+                    ds.update(daneshjoFind);
                     ls.delete(loans);
                     System.out.println("Vam tasvieh Shod :) ");
                     return true;
-                }else if (aghsateBaghimandeh <= 60 && aghsateBaghimandeh > 48){      //year one
+                }else if (aghsateBaghimandeh <= 10 && aghsateBaghimandeh > 8){      //year one
                     loans.setAghsateBaghimandeh(aghsateBaghimandeh);
-                    Long inventory = daneshjoFind.getCartNumber().getInventory();
-                    final CartBank cartNumber = daneshjoFind.getCartNumber();
-                    final Long amount = loans.getAmount();
-                    final double maghlagBaSod = amount * 0.1 + amount;
-                    final double mablaghHarGhest = maghlagBaSod / 372 * 12 ;
-                    final double paySixOnce = mablaghHarGhest / 2;
-                    final long pay = (long ) paySixOnce;
-                    inventory -= pay;
-                    cartNumber.setInventory(inventory);
-                    Long amountBaghimandeh = loans.getAmountBaghimandeh();
-                    amountBaghimandeh -= pay;
+                    double inventory = daneshjoFind.getCartNumber().getInventory();
+                    CartBank cartNumber = daneshjoFind.getCartNumber();
+                    double amount = loans.getAmount();
+                    double mablagSod = amount * 0.1 + amount;
+                    double mablaghHarGhest = (mablagSod / 372) * 6 ;
+                    inventory -= mablaghHarGhest;
+                    cartNumber.setInventory((long)inventory);
+                    double amountBaghimandeh = loans.getAmountBaghimandeh();
+                    amountBaghimandeh -= mablaghHarGhest;
                     loans.setAmountBaghimandeh(amountBaghimandeh);
                     daneshjoFind.setCartNumber(cartNumber);;
                     ds.update(daneshjoFind);
                     ls.update(loans);
-
-                }else if (aghsateBaghimandeh <= 48 && aghsateBaghimandeh > 36 ){  //year two
+                }else if (aghsateBaghimandeh <= 8 && aghsateBaghimandeh > 6 ){  //year two
                     loans.setAghsateBaghimandeh(aghsateBaghimandeh);
-                    Long inventory = daneshjoFind.getCartNumber().getInventory();
-                    final CartBank cartNumber = daneshjoFind.getCartNumber();
-                    final Long amount = loans.getAmount();
-                    final double maghlagBaSod = amount * 0.1 + amount;
-                    final double mablaghHarGhest = maghlagBaSod / 372 * 24;
-                    final double paySixOnce = mablaghHarGhest * 2;
-                    final long pay = (long ) paySixOnce;
-                    inventory -= pay;
-                    cartNumber.setInventory(inventory);
-                    Long amountBaghimandeh = loans.getAmountBaghimandeh();
-                    amountBaghimandeh -= pay;
+                    double inventory = daneshjoFind.getCartNumber().getInventory();
+                    CartBank cartNumber = daneshjoFind.getCartNumber();
+                    double amount = loans.getAmount();
+                    double mablagSod = amount * 0.1 + amount;
+                    double mablaghHarGhest = (mablagSod / 372) * 12 ;
+                    inventory -= mablaghHarGhest;
+                    cartNumber.setInventory((long)inventory);
+                    double amountBaghimandeh = loans.getAmountBaghimandeh();
+                    amountBaghimandeh -= mablaghHarGhest;
                     loans.setAmountBaghimandeh(amountBaghimandeh);
                     daneshjoFind.setCartNumber(cartNumber);;
                     ds.update(daneshjoFind);
                     ls.update(loans);
-
-                }else if(aghsateBaghimandeh <= 36 && aghsateBaghimandeh > 24 ){   // year three
+                }else if(aghsateBaghimandeh <= 6 && aghsateBaghimandeh > 4 ){   // year three
                     loans.setAghsateBaghimandeh(aghsateBaghimandeh);
-                    Long inventory = daneshjoFind.getCartNumber().getInventory();
-                    final CartBank cartNumber = daneshjoFind.getCartNumber();
-                    final Long amount = loans.getAmount();
-                    final double maghlagBaSod = amount * 0.1 + amount;
-                    final double mablaghHarGhest = maghlagBaSod / 372 * 48;
-                    final double paySixOnce = mablaghHarGhest / 2;
-                    final long pay = (long ) paySixOnce;
-                    inventory -= pay;
-                    cartNumber.setInventory(inventory);
-                    Long amountBaghimandeh = loans.getAmountBaghimandeh();
-                    amountBaghimandeh -= pay;
+                    double inventory = daneshjoFind.getCartNumber().getInventory();
+                    CartBank cartNumber = daneshjoFind.getCartNumber();
+                    double amount = loans.getAmount();
+                    double mablagSod = amount * 0.1 + amount;
+                    double mablaghHarGhest = (mablagSod / 372) * 24 ;
+                    inventory -= mablaghHarGhest;
+                    cartNumber.setInventory((long)inventory);
+                    double amountBaghimandeh = loans.getAmountBaghimandeh();
+                    amountBaghimandeh -= mablaghHarGhest;
                     loans.setAmountBaghimandeh(amountBaghimandeh);
                     daneshjoFind.setCartNumber(cartNumber);;
                     ds.update(daneshjoFind);
                     ls.update(loans);
-
-                }else if (aghsateBaghimandeh <= 24 && aghsateBaghimandeh > 12 ){  //year four
+                }else if (aghsateBaghimandeh <= 4 && aghsateBaghimandeh > 2 ){  //year four
                     loans.setAghsateBaghimandeh(aghsateBaghimandeh);
-                    Long inventory = daneshjoFind.getCartNumber().getInventory();
-                    final CartBank cartNumber = daneshjoFind.getCartNumber();
-                    final Long amount = loans.getAmount();
-                    final double maghlagBaSod = amount * 0.1 + amount;
-                    final double mablaghHarGhest = maghlagBaSod / 372 * 96;
-                    final double paySixOnce = mablaghHarGhest / 2;
-                    final long pay = (long ) paySixOnce;
-                    inventory -= pay;
-                    cartNumber.setInventory(inventory);
-                    Long amountBaghimandeh = loans.getAmountBaghimandeh();
-                    amountBaghimandeh -= pay;
+                    double inventory = daneshjoFind.getCartNumber().getInventory();
+                    CartBank cartNumber = daneshjoFind.getCartNumber();
+                    double amount = loans.getAmount();
+                    double mablagSod = amount * 0.1 + amount;
+                    double mablaghHarGhest = (mablagSod / 372) * 48 ;
+                    inventory -= mablaghHarGhest;
+                    cartNumber.setInventory((long)inventory);
+                    double amountBaghimandeh = loans.getAmountBaghimandeh();
+                    amountBaghimandeh -= mablaghHarGhest;
                     loans.setAmountBaghimandeh(amountBaghimandeh);
                     daneshjoFind.setCartNumber(cartNumber);;
                     ds.update(daneshjoFind);
                     ls.update(loans);
-
-                }else if (aghsateBaghimandeh <= 12 && aghsateBaghimandeh > 0 ){   //year five
+                }else if (aghsateBaghimandeh <= 2 && aghsateBaghimandeh > 0 ){   //year five
                     loans.setAghsateBaghimandeh(aghsateBaghimandeh);
-                    Long inventory = daneshjoFind.getCartNumber().getInventory();
-                    final CartBank cartNumber = daneshjoFind.getCartNumber();
-                    final Long amount = loans.getAmount();
-                    final double maghlagBaSod = amount * 0.1 + amount;
-                    final double mablaghHarGhest = maghlagBaSod / 372 * 192;
-                    final double paySixOnce = mablaghHarGhest / 2;
-                    final long pay = (long ) paySixOnce;
-                    inventory -= pay;
-                    cartNumber.setInventory(inventory);
-                    Long amountBaghimandeh = loans.getAmountBaghimandeh();
-                    amountBaghimandeh -= pay;
+                    double inventory = daneshjoFind.getCartNumber().getInventory();
+                    CartBank cartNumber = daneshjoFind.getCartNumber();
+                    double amount = loans.getAmount();
+                    double mablagSod = amount * 0.1 + amount;
+                    double mablaghHarGhest = (mablagSod / 372) * 96 ;
+                    inventory -= mablaghHarGhest;
+                    cartNumber.setInventory((long)inventory);
+                    double amountBaghimandeh = loans.getAmountBaghimandeh();
+                    amountBaghimandeh -= mablaghHarGhest;
                     loans.setAmountBaghimandeh(amountBaghimandeh);
                     daneshjoFind.setCartNumber(cartNumber);;
                     ds.update(daneshjoFind);
                     ls.update(loans);
-
                 }
                 return true;
             } catch (Exception e) {
@@ -493,11 +485,11 @@ public class UserPanel {
     }
 
     //section create Loan
-    public static Loans createLoan(Daneshjo id, String typeLoan, Long amount, int tedadAghsat) throws InvalidException {
+    public static Loans createLoan(Daneshjo id, String typeLoan, double amount, int tedadAghsat) throws InvalidException {
         try {
             LocalDate date = LocalDate.now();
             double amountBaghimandeh = (amount * 0.1) + amount;
-            Loans loans = new Loans(Status.request, id, date, TypeLoan.getFromString(typeLoan), amount, (long) amountBaghimandeh, tedadAghsat, tedadAghsat);
+            Loans loans = new Loans(Status.request, id, date, TypeLoan.getFromString(typeLoan),amount, amountBaghimandeh, tedadAghsat, tedadAghsat);
             return loans;
         } catch (Exception e) {
             throw new InvalidException("Wrong Input");
