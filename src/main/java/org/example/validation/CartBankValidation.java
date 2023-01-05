@@ -1,8 +1,5 @@
 package org.example.validation;
 
-import org.example.Main;
-
-import java.util.regex.Pattern;
 
 public class CartBankValidation {
     public static boolean validation(String cartNumber){

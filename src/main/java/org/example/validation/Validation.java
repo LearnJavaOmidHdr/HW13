@@ -2,7 +2,6 @@ package org.example.validation;
 
 import org.example.Main;
 import org.omg.CORBA.DynAnyPackage.Invalid;
-
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Pattern;

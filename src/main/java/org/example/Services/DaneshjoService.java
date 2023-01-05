@@ -3,9 +3,12 @@ package org.example.Services;
 import org.example.entity.Daneshjo;
 import org.example.panels.Space;
 import org.example.repository.DaneshjoRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DaneshjoService extends ServiceImpl<DaneshjoRepository, Daneshjo, Long> {
 
+    public static final Logger logger = LoggerFactory.getLogger(DaneshjoService.class);
     public DaneshjoService(DaneshjoRepository daneshjoRepository) {
         super(daneshjoRepository);
     }
@@ -16,9 +19,10 @@ public class DaneshjoService extends ServiceImpl<DaneshjoRepository, Daneshjo, L
         if (daneshjoRepository.login(daneshjo)>= 1) {
             Space.space();
             System.out.println("User Login Successfully ");
+            logger.info("user {} loged in sucessfully",daneshjo);
             return daneshjoRepository.login(daneshjo);
         }
-        System.out.println("wrong User name or Password ");
+        logger.info("wrong User name or Password ");
         return 0;
     }
 

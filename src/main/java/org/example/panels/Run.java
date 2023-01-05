@@ -14,14 +14,19 @@ import org.example.exception.NullpointerExeption;
 import org.example.repository.DaneshjoRepository;
 import org.example.validation.*;
 import org.omg.CORBA.DynAnyPackage.Invalid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Scanner;
 import java.util.zip.DataFormatException;
 
 public class Run {
+    public static final Logger logger = LoggerFactory.getLogger(Run.class);
     //section basePanel
     public static void basePanel() {
+        logger.info("user loged in base panel");
         System.out.println("-----------------------\n" +
                 "1. login \n" +
                 "2. Register \n" +
@@ -33,6 +38,7 @@ public class Run {
     public static Daneshjo register() throws DataFormatException, Invalid {
 
 //        /*
+        logger.info("user loged Start Register");
         System.out.print("Enter your Name : ");
         String name = Main.scanner.nextLine();
         name = Validation.validString(name);
@@ -118,21 +124,25 @@ public class Run {
                 international, shenasnameh, Date.valueOf(birthDate), daneshjoi, nameUnivercity,
                 TypeUnivercity.getFromString(typeUnivercity), yearEnter, MaghtaTahsili.getFromString(tahsili),
                 international, GeneratePassword.generatePassword(),cartNumber, StatusDaneshjo.daneshjo);
+        logger.info("user {} logged Login",daneshjo);
         return daneshjo;
     }
 
     //section Login
     public static Daneshjo login() {
+        logger.info("user loged Start Login");
         System.out.print("Enter your username : ");
         final String username = Main.scanner.nextLine();
         System.out.print("Enter your password : ");
         final String password = Main.scanner.nextLine();
         Daneshjo daneshjo = new Daneshjo(username, password);
+        logger.info("user {} logged Login",daneshjo);
         return daneshjo;
     }
 
     //section start
     public static void start() throws NullpointerExeption, DataFormatException, SQLException, InvalidException, Invalid {
+
         Scanner scanner = new Scanner(System.in);
         switch (scanner.nextLine()) {
             case "1":

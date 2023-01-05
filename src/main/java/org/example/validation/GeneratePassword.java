@@ -1,6 +1,5 @@
 package org.example.validation;
 
-import java.util.Arrays;
 import java.util.Random;
 
 import static org.hibernate.query.criteria.internal.ValueHandlerFactory.isNumeric;
@@ -24,7 +23,7 @@ public class GeneratePassword {
             c[rand.nextInt(8-4)+4] = number.charAt(rand.nextInt(number.length()));
         }
         int i = 0;
-        while (i < c.length) {
+        while (i < c.length){
             password += c[i];
             char check = password.charAt(0);
             String ff = Character.toString(check);

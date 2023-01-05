@@ -2,10 +2,13 @@ package org.example.Services;
 
 import org.example.entity.Loans;
 import org.example.repository.LoanRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public class LoansService extends ServiceImpl<LoanRepository, Loans,Long> {
+    public static final Logger logger = LoggerFactory.getLogger(LoansService.class);
     public LoansService(LoanRepository loanRepository) {
         super(loanRepository);
     }
@@ -14,8 +17,10 @@ public class LoansService extends ServiceImpl<LoanRepository, Loans,Long> {
     public static boolean checkLoanExists(long id, String type) {
         if (LoanRepository.checkLoanExists(id, type)) {
             System.out.println("Loan Already Exist try another loan ! ");
+            logger.error("Loan already existsuser {} log user already exist",id);
             return false;
         }
+        logger.info("loan dose not exist from user id : {}",id);
         return true;
     }
 

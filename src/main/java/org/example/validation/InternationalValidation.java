@@ -16,14 +16,13 @@ public class InternationalValidation {
         return cartNumber.length() == 16;
     }
 
-    public boolean isNumeric(String nationalCode) {
+    public boolean isNumeric(String nationalCode){
         try {
             Double.parseDouble(nationalCode);
             return true;
-        } catch (NumberFormatException e) {
+        }catch(NumberFormatException e){
             return false;
         }
-
     }
 
     private boolean validMeli(String nationalCode) {
